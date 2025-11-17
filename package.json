@@ -1,7 +1,7 @@
 {
   "name": "@fonds/eslint-config",
   "type": "module",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "packageManager": "pnpm@10.20.0",
   "description": "Fonds's ESLint config",
   "author": "https://github.com/fonds-tech",
@@ -124,8 +124,8 @@
     "eslint-config-flat-gitignore": "catalog:prod",
     "eslint-flat-config-utils": "catalog:prod",
     "eslint-merge-processors": "catalog:prod",
-    "eslint-plugin-antfu": "catalog:prod",
     "eslint-plugin-command": "catalog:prod",
+    "eslint-plugin-fonds": "catalog:prod",
     "eslint-plugin-import-lite": "catalog:prod",
     "eslint-plugin-jsdoc": "catalog:prod",
     "eslint-plugin-jsonc": "catalog:prod",
