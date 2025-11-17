@@ -1,13 +1,15 @@
-import type { OptionsConfig } from '../src'
+import type { OptionsConfig, TypedFlatConfigItem } from '../src'
 import fs from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { ESLint } from 'eslint'
 import { describe, expect, it } from 'vitest'
 import { fonds } from '../src'
 
+type FondsFlatOptions = OptionsConfig & Omit<TypedFlatConfigItem, 'files'>
+
 describe('jsx-a11y rules', () => {
-  const createESLint = async (options?: OptionsConfig) => {
-    const configs = await fonds({
+  const createESLint = async (options?: FondsFlatOptions) => {
+    const baseOptions = {
       react: true,
       typescript: false,
       stylistic: false,
@@ -15,8 +17,12 @@ describe('jsx-a11y rules', () => {
       jsx: {
         a11y: true,
       },
-      ...options,
-    })
+    } satisfies FondsFlatOptions
+
+    const configs = await fonds({
+      ...baseOptions,
+      ...(options ?? {}),
+    } as FondsFlatOptions)
 
     return new ESLint({
       overrideConfigFile: true,
