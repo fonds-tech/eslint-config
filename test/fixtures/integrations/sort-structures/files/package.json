@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "name": "demo",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "dependencies": {
+    "vue": "^3.5.0",
+    "axios": "^1.7.0"
+  }
+}

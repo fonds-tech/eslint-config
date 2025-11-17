@@ -1,0 +1,23 @@
+{
+  "files": [
+    {
+      "filePath": "scripts/tool.js",
+      "errorCount": 0,
+      "warningCount": 0,
+      "messages": []
+    },
+    {
+      "filePath": "src/regular.js",
+      "errorCount": 1,
+      "warningCount": 0,
+      "messages": [
+        {
+          "ruleId": "no-console",
+          "line": 2,
+          "column": 3,
+          "severity": 2
+        }
+      ]
+    }
+  ]
+}

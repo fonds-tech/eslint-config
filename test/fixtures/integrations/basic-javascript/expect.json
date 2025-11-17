@@ -1,0 +1,41 @@
+{
+  "files": [
+    {
+      "filePath": "src/sample.js",
+      "errorCount": 5,
+      "warningCount": 0,
+      "messages": [
+        {
+          "ruleId": "prefer-const",
+          "line": 2,
+          "column": 7,
+          "severity": 2
+        },
+        {
+          "ruleId": "eqeqeq",
+          "line": 4,
+          "column": 13,
+          "severity": 2
+        },
+        {
+          "ruleId": "no-console",
+          "line": 5,
+          "column": 5,
+          "severity": 2
+        },
+        {
+          "ruleId": "vars-on-top",
+          "line": 8,
+          "column": 3,
+          "severity": 2
+        },
+        {
+          "ruleId": "no-var",
+          "line": 8,
+          "column": 3,
+          "severity": 2
+        }
+      ]
+    }
+  ]
+}

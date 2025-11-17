@@ -1,0 +1,23 @@
+{
+  "files": [
+    {
+      "filePath": "src/server.js",
+      "errorCount": 2,
+      "warningCount": 0,
+      "messages": [
+        {
+          "ruleId": "prefer-template",
+          "line": 2,
+          "column": 10,
+          "severity": 2
+        },
+        {
+          "ruleId": "node/no-path-concat",
+          "line": 2,
+          "column": 10,
+          "severity": 2
+        }
+      ]
+    }
+  ]
+}

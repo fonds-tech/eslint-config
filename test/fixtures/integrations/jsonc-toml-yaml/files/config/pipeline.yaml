@@ -1,0 +1,8 @@
+stages:
+  - name: build
+    steps:
+      - run: pnpm build
+  - name: deploy
+    steps:
+      - run: pnpm deploy
+: invalid

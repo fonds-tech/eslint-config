@@ -1,0 +1,17 @@
+{
+  "files": [
+    {
+      "filePath": "src/components/Card.tsx",
+      "errorCount": 1,
+      "warningCount": 0,
+      "messages": [
+        {
+          "ruleId": "unocss/blocklist",
+          "line": 3,
+          "column": 16,
+          "severity": 2
+        }
+      ]
+    }
+  ]
+}

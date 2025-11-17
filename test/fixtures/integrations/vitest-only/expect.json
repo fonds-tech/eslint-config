@@ -1,0 +1,17 @@
+{
+  "files": [
+    {
+      "filePath": "src/example.test.js",
+      "errorCount": 1,
+      "warningCount": 0,
+      "messages": [
+        {
+          "ruleId": "test/no-only-tests",
+          "line": 4,
+          "column": 6,
+          "severity": 2
+        }
+      ]
+    }
+  ]
+}

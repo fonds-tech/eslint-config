@@ -1,0 +1,17 @@
+{
+  "files": [
+    {
+      "filePath": "docs/guide.md",
+      "errorCount": 1,
+      "warningCount": 0,
+      "messages": [
+        {
+          "ruleId": "eqeqeq",
+          "line": 5,
+          "column": 13,
+          "severity": 2
+        }
+      ]
+    }
+  ]
+}

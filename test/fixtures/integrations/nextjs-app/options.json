@@ -1,0 +1,10 @@
+{
+  "config": {
+    "stylistic": false,
+    "react": true,
+    "typescript": {
+      "tsconfigPath": "test/fixtures/integrations/nextjs-app/tsconfig.json"
+    },
+    "nextjs": true
+  }
+}

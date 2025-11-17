@@ -1,0 +1,23 @@
+{
+  "files": [
+    {
+      "filePath": "apps/app/package.json",
+      "errorCount": 1,
+      "warningCount": 0,
+      "messages": [
+        {
+          "ruleId": "pnpm/json-enforce-catalog",
+          "line": 5,
+          "column": 15,
+          "severity": 2
+        }
+      ]
+    },
+    {
+      "filePath": "pnpm-workspace.yaml",
+      "errorCount": 0,
+      "warningCount": 0,
+      "messages": []
+    }
+  ]
+}

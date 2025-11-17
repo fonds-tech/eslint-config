@@ -1,0 +1,17 @@
+{
+  "files": [
+    {
+      "filePath": "src/Button.tsx",
+      "errorCount": 1,
+      "warningCount": 0,
+      "messages": [
+        {
+          "ruleId": "solid/no-destructure",
+          "line": 3,
+          "column": 47,
+          "severity": 2
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "config": {
+    "stylistic": false,
+    "typescript": false,
+    "react": false,
+    "formatters": {
+      "css": true
+    }
+  }
+}

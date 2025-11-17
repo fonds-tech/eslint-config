@@ -1,0 +1,10 @@
+{
+  "config": {
+    "stylistic": false,
+    "react": false,
+    "typescript": {
+      "tsconfigPath": "test/fixtures/integrations/typescript-strict/tsconfig.json",
+      "type": "lib"
+    }
+  }
+}
