@@ -109,6 +109,10 @@ CLI 会在检测到已有 `eslint.config.js` 时终止，以防覆盖既有配�
 - `pnpm lint`：用本项目的 ESLint 规则自检源码。
 - `pnpm gen`：手动刷新类型和版本信息。
 
+## 致谢
+
+本项目基于 [@antfu/eslint-config](https://github.com/antfu/eslint-config) 的优秀实践，并在此基础上进行了定制与扩展，特此感谢。
+
 ## 许可证与维护者
 
 - 许可证：MIT（详见 `LICENSE`）

@@ -8,7 +8,7 @@ export async function disables(): Promise<TypedFlatConfigItem[]> {
       files: [`**/scripts/${GLOB_SRC}`],
       name: 'fonds/disables/scripts',
       rules: {
-        'antfu/no-top-level-await': 'off',
+        'fonds/no-top-level-await': 'off',
         'no-console': 'off',
         'ts/explicit-function-return-type': 'off',
       },
@@ -17,7 +17,7 @@ export async function disables(): Promise<TypedFlatConfigItem[]> {
       files: [`**/cli/${GLOB_SRC}`, `**/cli.${GLOB_SRC_EXT}`],
       name: 'fonds/disables/cli',
       rules: {
-        'antfu/no-top-level-await': 'off',
+        'fonds/no-top-level-await': 'off',
         'no-console': 'off',
       },
     },
@@ -25,8 +25,8 @@ export async function disables(): Promise<TypedFlatConfigItem[]> {
       files: ['**/bin/**/*', `**/bin.${GLOB_SRC_EXT}`],
       name: 'fonds/disables/bin',
       rules: {
-        'antfu/no-import-dist': 'off',
-        'antfu/no-import-node-modules-by-path': 'off',
+        'fonds/no-import-dist': 'off',
+        'fonds/no-import-node-modules-by-path': 'off',
       },
     },
     {
@@ -49,7 +49,7 @@ export async function disables(): Promise<TypedFlatConfigItem[]> {
       files: [`**/*.config.${GLOB_SRC_EXT}`, `**/*.config.*.${GLOB_SRC_EXT}`],
       name: 'fonds/disables/config-files',
       rules: {
-        'antfu/no-top-level-await': 'off',
+        'fonds/no-top-level-await': 'off',
         'no-console': 'off',
         'ts/explicit-function-return-type': 'off',
       },

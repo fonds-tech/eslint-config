@@ -56,7 +56,7 @@ export async function markdown(
       },
       name: 'fonds/markdown/disables',
       rules: {
-        'antfu/no-top-level-await': 'off',
+        'fonds/no-top-level-await': 'off',
 
         'no-alert': 'off',
         'no-console': 'off',

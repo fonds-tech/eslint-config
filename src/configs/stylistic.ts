@@ -42,23 +42,23 @@ export async function stylistic(
     {
       name: 'fonds/stylistic/rules',
       plugins: {
-        antfu: pluginFonds,
+        fonds: pluginFonds,
         style: pluginStylistic,
       },
       rules: {
         ...config.rules,
 
-        'antfu/consistent-chaining': 'error',
-        'antfu/consistent-list-newline': 'error',
+        'fonds/consistent-chaining': 'error',
+        'fonds/consistent-list-newline': 'error',
 
         ...(lessOpinionated
           ? {
               curly: ['error', 'all'],
             }
           : {
-              'antfu/curly': 'error',
-              'antfu/if-newline': 'error',
-              'antfu/top-level-function': 'error',
+              'fonds/curly': 'error',
+              'fonds/if-newline': 'error',
+              'fonds/top-level-function': 'error',
             }
         ),
 

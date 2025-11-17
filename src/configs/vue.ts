@@ -119,7 +119,7 @@ export async function vue(
               ...pluginVue.configs['flat/recommended'].map(c => c.rules).reduce((acc, c) => ({ ...acc, ...c }), {}) as any,
             },
 
-        'antfu/no-top-level-await': 'off',
+        'fonds/no-top-level-await': 'off',
         'node/prefer-global/process': 'off',
         'ts/explicit-function-return-type': 'off',
 

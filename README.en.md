@@ -117,6 +117,10 @@ The `package.json` scripts power local development:
 - `pnpm lint` – lint repository sources (self-hosted config).
 - `pnpm gen` – refresh type and version metadata.
 
+## Acknowledgements
+
+This project builds upon the excellent work in [@antfu/eslint-config](https://github.com/antfu/eslint-config) and extends it with Fonds Tech–specific conventions. Huge thanks to the upstream maintainers.
+
 ## License & Maintainers
 
 - License: [MIT](LICENSE)

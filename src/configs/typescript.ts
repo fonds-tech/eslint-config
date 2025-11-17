@@ -106,7 +106,7 @@ export async function typescript(
       // Install the plugins without globs, so they can be configured separately.
       name: 'fonds/typescript/setup',
       plugins: {
-        antfu: pluginFonds,
+        fonds: pluginFonds,
         ts: pluginTs as any,
       },
     },

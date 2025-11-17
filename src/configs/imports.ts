@@ -11,13 +11,13 @@ export async function imports(options: OptionsOverrides & OptionsStylistic = {})
     {
       name: 'fonds/imports/rules',
       plugins: {
-        antfu: pluginFonds,
+        fonds: pluginFonds,
         import: pluginImportLite,
       },
       rules: {
-        'antfu/import-dedupe': 'error',
-        'antfu/no-import-dist': 'error',
-        'antfu/no-import-node-modules-by-path': 'error',
+        'fonds/import-dedupe': 'error',
+        'fonds/no-import-dist': 'error',
+        'fonds/no-import-node-modules-by-path': 'error',
 
         'import/consistent-type-specifier-style': ['error', 'top-level'],
         'import/first': 'error',
