@@ -1,4 +1,0 @@
-.parent > .child + .sibling {
-  margin: 0;
-  padding: 10px;
-}

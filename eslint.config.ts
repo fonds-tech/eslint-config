@@ -1,18 +1,41 @@
-import { eslint } from "./src";
+import { antfu } from './src'
 
-export default eslint(
+export default antfu(
   {
-    type: "lib",
+    vue: {
+      a11y: true,
+    },
     react: true,
     solid: true,
-    pnpm: false,
     svelte: true,
     astro: true,
-    nextjs: true,
-    typescript: true,
+    nextjs: false,
+    typescript: {
+      erasableOnly: true,
+    },
+    markdown: {
+      overrides: {
+        'no-dupe-keys': 'off',
+      },
+    },
     formatters: true,
-    vue: { a11y: true },
-    jsx: { a11y: true },
+    pnpm: true,
+    type: 'lib',
+    jsx: {
+      a11y: true,
+    },
   },
-  { ignores: ["test/fixtures"] },
-);
+  {
+    ignores: [
+      'fixtures',
+      '_fixtures',
+      '**/constants-generated.ts',
+    ],
+  },
+  {
+    files: ['src/**/*.ts'],
+    rules: {
+      'perfectionist/sort-objects': 'error',
+    },
+  },
+)

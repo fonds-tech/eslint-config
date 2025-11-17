@@ -11,5 +11,8 @@
   "include": [
     "**/*.ts"
   ],
-  "exclude": ["test/fixtures/**"]
+  "exclude": [
+    "./fixtures/**/*.*",
+    "./_fixtures/**/*.*"
+  ]
 }

@@ -1,151 +1,200 @@
 {
-  "name": "@fonds/eslint-config",
+  "name": "@antfu/eslint-config",
   "type": "module",
-  "version": "1.0.5",
-  "private": false,
-  "packageManager": "pnpm@10.15.0",
-  "description": "一个可复用、可扩展的 ESLint 配置预设，用于在团队或个人项目中保持一致的代码风格和质量。",
-  "author": "",
+  "version": "6.2.0",
+  "packageManager": "pnpm@10.20.0",
+  "description": "Anthony's ESLint config",
+  "author": "Anthony Fu <anthonyfu117@hotmail.com> (https://github.com/antfu/)",
   "license": "MIT",
-  "homepage": "https://github.com/SenRanYo/eslint-config#readme",
+  "funding": "https://github.com/sponsors/antfu",
+  "homepage": "https://github.com/antfu/eslint-config",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SenRanYo/eslint-config.git"
+    "url": "git+https://github.com/antfu/eslint-config.git"
   },
   "bugs": {
-    "url": "https://github.com/SenRanYo/eslint-config/issues"
+    "url": "https://github.com/antfu/eslint-config/issues"
   },
   "keywords": [
-    "fonds",
     "eslint-config"
   ],
   "exports": {
-    "./package.json": "./package.json",
-    ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      }
-    }
+    ".": "./dist/index.js"
   },
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": "./bin/index.js",
   "files": [
-    "/dist"
+    "bin",
+    "dist"
   ],
   "scripts": {
-    "build": "nr gen && rollup --config rollup.config.ts --configPlugin typescript",
+    "build": "nr gen && tsdown --clean --dts",
+    "stub": "tsdown",
+    "dev": "npx @eslint/config-inspector --config eslint.config.ts",
     "build:inspector": "pnpm build && npx @eslint/config-inspector build",
-    "gen": "tsx scripts/typegen.ts",
-    "release": "pnpm publish",
-    "typecheck": "tsc --noEmit",
-    "test": "vitest",
+    "watch": "tsdown --watch",
     "lint": "eslint",
-    "lint:fix": "eslint --fix"
-  },
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
+    "gen": "tsx scripts/typegen.ts && tsx scripts/versiongen.ts",
+    "prepack": "nr build",
+    "release": "bumpp",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "prepare": "simple-git-hooks"
   },
   "peerDependencies": {
-    "@eslint-react/eslint-plugin": "^1.52.9",
-    "@next/eslint-plugin-next": "^16.0.1",
+    "@eslint-react/eslint-plugin": "^2.0.1",
+    "@next/eslint-plugin-next": ">=15.0.0",
     "@prettier/plugin-xml": "^3.4.1",
-    "@unocss/eslint-plugin": "^66.5.5",
+    "@unocss/eslint-plugin": ">=0.50.0",
     "astro-eslint-parser": "^1.0.2",
-    "eslint": "^9.39.1",
-    "eslint-plugin-astro": "^1.5.0",
-    "eslint-plugin-format": "^1.0.2",
-    "eslint-plugin-jsx-a11y": "^6.10.2",
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-react-refresh": "^0.4.24",
-    "eslint-plugin-solid": "^0.14.5",
-    "eslint-plugin-svelte": "^3.13.0",
+    "eslint": "^9.10.0",
+    "eslint-plugin-astro": "^1.2.0",
+    "eslint-plugin-format": ">=0.1.0",
+    "eslint-plugin-jsx-a11y": ">=6.10.2",
+    "eslint-plugin-react-hooks": "^7.0.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "eslint-plugin-solid": "^0.14.3",
+    "eslint-plugin-svelte": ">=2.35.1",
     "eslint-plugin-vuejs-accessibility": "^2.4.1",
     "prettier-plugin-astro": "^0.14.0",
     "prettier-plugin-slidev": "^1.0.5",
-    "svelte-eslint-parser": "^1.4.0"
+    "svelte-eslint-parser": ">=0.37.0"
+  },
+  "peerDependenciesMeta": {
+    "@eslint-react/eslint-plugin": {
+      "optional": true
+    },
+    "@next/eslint-plugin-next": {
+      "optional": true
+    },
+    "@prettier/plugin-xml": {
+      "optional": true
+    },
+    "@unocss/eslint-plugin": {
+      "optional": true
+    },
+    "astro-eslint-parser": {
+      "optional": true
+    },
+    "eslint-plugin-astro": {
+      "optional": true
+    },
+    "eslint-plugin-format": {
+      "optional": true
+    },
+    "eslint-plugin-jsx-a11y": {
+      "optional": true
+    },
+    "eslint-plugin-react-hooks": {
+      "optional": true
+    },
+    "eslint-plugin-react-refresh": {
+      "optional": true
+    },
+    "eslint-plugin-solid": {
+      "optional": true
+    },
+    "eslint-plugin-svelte": {
+      "optional": true
+    },
+    "eslint-plugin-vuejs-accessibility": {
+      "optional": true
+    },
+    "prettier-plugin-astro": {
+      "optional": true
+    },
+    "prettier-plugin-slidev": {
+      "optional": true
+    },
+    "svelte-eslint-parser": {
+      "optional": true
+    }
   },
   "dependencies": {
-    "@antfu/install-pkg": "^1.1.0",
-    "@clack/prompts": "^0.11.0",
-    "@eslint-community/eslint-plugin-eslint-comments": "^4.5.0",
-    "@eslint/markdown": "^7.5.1",
-    "@stylistic/eslint-plugin": "^5.5.0",
-    "@typescript-eslint/eslint-plugin": "^8.46.4",
-    "@typescript-eslint/parser": "^8.46.4",
-    "@vitest/eslint-plugin": "^1.4.2",
-    "eslint-config-flat-gitignore": "^2.1.0",
-    "eslint-flat-config-utils": "^2.1.4",
-    "eslint-merge-processors": "^2.0.0",
-    "eslint-plugin-import-lite": "^0.3.0",
-    "eslint-plugin-jsdoc": "^61.1.12",
-    "eslint-plugin-jsonc": "^2.21.0",
-    "eslint-plugin-n": "^17.23.1",
-    "eslint-plugin-no-only-tests": "^3.3.0",
-    "eslint-plugin-perfectionist": "^4.15.1",
-    "eslint-plugin-pnpm": "^1.3.0",
-    "eslint-plugin-regexp": "^2.10.0",
-    "eslint-plugin-toml": "^0.12.0",
-    "eslint-plugin-unicorn": "^62.0.0",
-    "eslint-plugin-unused-imports": "^4.3.0",
-    "eslint-plugin-vue": "^10.5.1",
-    "eslint-plugin-yml": "^1.19.0",
-    "eslint-processor-vue-blocks": "^2.0.0",
-    "globals": "^16.5.0",
-    "jsonc-eslint-parser": "^2.4.1",
-    "local-pkg": "^1.1.2",
-    "toml-eslint-parser": "^0.10.0",
-    "vue-eslint-parser": "^10.2.0",
-    "yaml-eslint-parser": "^1.3.0"
+    "@antfu/install-pkg": "catalog:prod",
+    "@clack/prompts": "catalog:prod",
+    "@eslint-community/eslint-plugin-eslint-comments": "catalog:prod",
+    "@eslint/markdown": "catalog:prod",
+    "@stylistic/eslint-plugin": "catalog:prod",
+    "@typescript-eslint/eslint-plugin": "catalog:prod",
+    "@typescript-eslint/parser": "catalog:prod",
+    "@vitest/eslint-plugin": "catalog:prod",
+    "ansis": "catalog:prod",
+    "cac": "catalog:prod",
+    "eslint-config-flat-gitignore": "catalog:prod",
+    "eslint-flat-config-utils": "catalog:prod",
+    "eslint-merge-processors": "catalog:prod",
+    "eslint-plugin-antfu": "catalog:prod",
+    "eslint-plugin-command": "catalog:prod",
+    "eslint-plugin-import-lite": "catalog:prod",
+    "eslint-plugin-jsdoc": "catalog:prod",
+    "eslint-plugin-jsonc": "catalog:prod",
+    "eslint-plugin-n": "catalog:prod",
+    "eslint-plugin-no-only-tests": "catalog:prod",
+    "eslint-plugin-perfectionist": "catalog:prod",
+    "eslint-plugin-pnpm": "catalog:prod",
+    "eslint-plugin-regexp": "catalog:prod",
+    "eslint-plugin-toml": "catalog:prod",
+    "eslint-plugin-unicorn": "catalog:prod",
+    "eslint-plugin-unused-imports": "catalog:prod",
+    "eslint-plugin-vue": "catalog:prod",
+    "eslint-plugin-yml": "catalog:prod",
+    "eslint-processor-vue-blocks": "catalog:prod",
+    "globals": "catalog:prod",
+    "jsonc-eslint-parser": "catalog:prod",
+    "local-pkg": "catalog:prod",
+    "parse-gitignore": "catalog:prod",
+    "toml-eslint-parser": "catalog:prod",
+    "vue-eslint-parser": "catalog:prod",
+    "yaml-eslint-parser": "catalog:prod"
   },
   "devDependencies": {
-    "@antfu/install-pkg": "^1.1.0",
-    "@antfu/ni": "^27.0.1",
-    "@eslint-react/eslint-plugin": "^1.52.9",
-    "@next/eslint-plugin-next": "^16.0.1",
-    "@rollup/plugin-node-resolve": "^16.0.3",
-    "@rollup/plugin-replace": "^6.0.3",
-    "@rollup/plugin-sucrase": "^5.0.2",
-    "@rollup/plugin-terser": "^0.4.4",
-    "@rollup/plugin-typescript": "^12.3.0",
-    "@types/eslint-plugin-jsx-a11y": "^6.10.1",
-    "@types/node": "^24.10.0",
-    "@typescript-eslint/utils": "^8.46.4",
-    "@unocss/eslint-plugin": "^66.5.5",
-    "eslint": "^9.39.1",
-    "eslint-plugin-astro": "^1.5.0",
-    "eslint-plugin-format": "^1.0.2",
-    "eslint-plugin-jsx-a11y": "^6.10.2",
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-react-refresh": "^0.4.24",
-    "eslint-plugin-solid": "^0.14.5",
-    "eslint-plugin-svelte": "^3.13.0",
-    "eslint-plugin-vuejs-accessibility": "^2.4.1",
-    "eslint-typegen": "^2.3.0",
-    "execa": "^9.6.0",
-    "postcss": "^8.5.6",
-    "postcss-js": "^5.0.1",
-    "postcss-less": "^6.0.0",
-    "postcss-sass": "^0.5.0",
-    "postcss-scss": "^4.0.9",
-    "rimraf": "^6.1.0",
-    "rollup": "^4.53.2",
-    "rollup-plugin-cleanup": "^3.2.1",
-    "rollup-plugin-dts": "^6.2.3",
-    "rollup-plugin-license": "^3.6.0",
-    "svelte": "^5.43.5",
-    "svelte-eslint-parser": "^1.4.0",
-    "tinyglobby": "^0.2.15",
-    "tslib": "^2.8.1",
-    "tsx": "^4.20.6",
-    "typescript": "~5.9.3",
-    "vitest": "^4.0.8",
-    "vue": "^3.5.24"
+    "@antfu/eslint-config": "workspace:*",
+    "@antfu/ni": "catalog:dev",
+    "@eslint-react/eslint-plugin": "catalog:peer",
+    "@eslint/config-inspector": "catalog:dev",
+    "@next/eslint-plugin-next": "catalog:peer",
+    "@prettier/plugin-xml": "catalog:peer",
+    "@types/eslint-plugin-jsx-a11y": "catalog:dev",
+    "@types/node": "catalog:dev",
+    "@unocss/eslint-plugin": "catalog:peer",
+    "astro-eslint-parser": "catalog:peer",
+    "bumpp": "catalog:dev",
+    "eslint": "catalog:peer",
+    "eslint-plugin-astro": "catalog:peer",
+    "eslint-plugin-erasable-syntax-only": "catalog:peer",
+    "eslint-plugin-format": "catalog:peer",
+    "eslint-plugin-jsx-a11y": "catalog:peer",
+    "eslint-plugin-react-hooks": "catalog:peer",
+    "eslint-plugin-react-refresh": "catalog:peer",
+    "eslint-plugin-solid": "catalog:peer",
+    "eslint-plugin-svelte": "catalog:peer",
+    "eslint-plugin-vuejs-accessibility": "catalog:peer",
+    "eslint-typegen": "catalog:dev",
+    "execa": "catalog:dev",
+    "jiti": "catalog:dev",
+    "lint-staged": "catalog:dev",
+    "pnpm-workspace-yaml": "catalog:dev",
+    "prettier-plugin-astro": "catalog:peer",
+    "prettier-plugin-slidev": "catalog:peer",
+    "simple-git-hooks": "catalog:dev",
+    "svelte": "catalog:peer",
+    "svelte-eslint-parser": "catalog:peer",
+    "tinyglobby": "catalog:dev",
+    "tsdown": "catalog:dev",
+    "tsx": "catalog:dev",
+    "typescript": "catalog:dev",
+    "vitest": "catalog:dev",
+    "vue": "catalog:peer"
+  },
+  "resolutions": {
+    "eslint": "catalog:peer"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
   }
 }

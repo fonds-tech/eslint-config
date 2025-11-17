@@ -1,68 +1,58 @@
-import fs from "node:fs/promises";
-import { Linter } from "eslint";
-import { flatConfigsToRulesDTS } from "eslint-typegen/core";
-import {
-  jsx,
-  vue,
-  node,
-  test,
-  toml,
-  yaml,
-  jsdoc,
-  jsonc,
-  react,
-  solid,
-  nextjs,
-  regexp,
-  svelte,
-  unocss,
-  combine,
-  imports,
-  unicorn,
-  comments,
-  markdown,
-  stylistic,
-  formatters,
-  javascript,
-  typescript,
-  perfectionist,
-  sortPackageJson,
-} from "../src";
+import fs from 'node:fs/promises'
 
-const configs = await combine(
-  { plugins: { "": { rules: Object.fromEntries(new Linter({ configType: "eslintrc" }).getRules()) } } },
-  comments(),
-  formatters(),
-  imports(),
-  javascript(),
-  jsx({ a11y: true }),
-  jsdoc(),
-  jsonc(),
-  markdown(),
-  node(),
-  perfectionist(),
-  nextjs(),
-  react(),
-  solid(),
-  sortPackageJson(),
-  stylistic(),
-  svelte(),
-  test(),
-  toml(),
-  regexp(),
-  typescript(),
-  unicorn(),
-  unocss(),
-  vue(),
-  yaml(),
-);
+import { flatConfigsToRulesDTS } from 'eslint-typegen/core'
+import { builtinRules } from 'eslint/use-at-your-own-risk'
+import { antfu } from '../src/factory'
 
-const names = configs.map(i => i.name).filter(Boolean);
+const configs = await antfu({
+  astro: true,
+  formatters: true,
+  imports: true,
+  jsx: {
+    a11y: true,
+  },
+  jsonc: true,
+  markdown: true,
+  nextjs: true,
+  react: true,
+  solid: true,
+  pnpm: true,
+  regexp: true,
+  stylistic: true,
+  gitignore: true,
+  svelte: true,
+  typescript: {
+    tsconfigPath: 'tsconfig.json',
+    erasableOnly: true,
+  },
+  unicorn: true,
+  unocss: true,
+  vue: {
+    a11y: true,
+  },
+  yaml: true,
+  toml: true,
+  test: true,
+})
+  .prepend(
+    {
+      plugins: {
+        '': {
+          rules: Object.fromEntries(builtinRules.entries()),
+        },
+      },
+    },
+  )
 
-let dts = await flatConfigsToRulesDTS(configs, { includeAugmentation: false });
+const configNames = configs.map(i => i.name).filter(Boolean) as string[]
+
+let dts = await flatConfigsToRulesDTS(configs, {
+  includeAugmentation: false,
+})
 
 dts += `
-export type ConfigNames = ${names.map(name => `'${name}'`).join(" | ")}
-`;
+// Names of all the configs
+export type ConfigNames = ${configNames.map(i => `'${i}'`).join(' | ')}
+`
 
-await fs.writeFile("src/types/typegen.d.ts", dts);
+await fs.writeFile('src/typegen.d.ts', dts)
