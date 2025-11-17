@@ -1,5 +1,5 @@
 import type { OptionsOverrides, StylisticConfig, TypedFlatConfigItem } from '../types'
-import { pluginAntfu } from '../plugins'
+import { pluginFonds } from '../plugins'
 import { interopDefault } from '../utils'
 
 export const StylisticConfigDefaults: StylisticConfig = {
@@ -40,9 +40,9 @@ export async function stylistic(
 
   return [
     {
-      name: 'antfu/stylistic/rules',
+      name: 'fonds/stylistic/rules',
       plugins: {
-        antfu: pluginAntfu,
+        antfu: pluginFonds,
         style: pluginStylistic,
       },
       rules: {

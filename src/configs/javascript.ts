@@ -2,7 +2,7 @@ import type { OptionsIsInEditor, OptionsOverrides, TypedFlatConfigItem } from '.
 
 import globals from 'globals'
 
-import { pluginAntfu, pluginUnusedImports } from '../plugins'
+import { pluginFonds, pluginUnusedImports } from '../plugins'
 
 export async function javascript(
   options: OptionsIsInEditor & OptionsOverrides = {},
@@ -36,12 +36,12 @@ export async function javascript(
       linterOptions: {
         reportUnusedDisableDirectives: true,
       },
-      name: 'antfu/javascript/setup',
+      name: 'fonds/javascript/setup',
     },
     {
-      name: 'antfu/javascript/rules',
+      name: 'fonds/javascript/rules',
       plugins: {
-        'antfu': pluginAntfu,
+        'antfu': pluginFonds,
         'unused-imports': pluginUnusedImports,
       },
       rules: {

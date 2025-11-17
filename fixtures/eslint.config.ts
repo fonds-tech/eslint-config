@@ -1,6 +1,6 @@
-import { antfu } from './src'
+import { fonds } from './src'
 
-export default antfu(
+export default fonds(
   {
     vue: {
       a11y: true,

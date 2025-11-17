@@ -27,7 +27,7 @@ export async function yaml(
 
   return [
     {
-      name: 'antfu/yaml/setup',
+      name: 'fonds/yaml/setup',
       plugins: {
         yaml: pluginYaml,
       },
@@ -37,7 +37,7 @@ export async function yaml(
       languageOptions: {
         parser: parserYaml,
       },
-      name: 'antfu/yaml/rules',
+      name: 'fonds/yaml/rules',
       rules: {
         'style/spaced-comment': 'off',
 
@@ -71,7 +71,7 @@ export async function yaml(
     },
     {
       files: ['pnpm-workspace.yaml'],
-      name: 'antfu/yaml/pnpm-workspace',
+      name: 'fonds/yaml/pnpm-workspace',
       rules: {
         'yaml/sort-keys': [
           'error',

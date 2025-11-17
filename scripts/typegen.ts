@@ -2,9 +2,9 @@ import fs from 'node:fs/promises'
 
 import { flatConfigsToRulesDTS } from 'eslint-typegen/core'
 import { builtinRules } from 'eslint/use-at-your-own-risk'
-import { antfu } from '../src/factory'
+import { fonds } from '../src/factory'
 
-const configs = await antfu({
+const configs = await fonds({
   astro: true,
   formatters: true,
   imports: true,

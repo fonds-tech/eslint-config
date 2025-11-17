@@ -13,7 +13,7 @@ import type {
 } from '../types'
 import process from 'node:process'
 import { GLOB_ASTRO_TS, GLOB_MARKDOWN, GLOB_TS, GLOB_TSX } from '../globs'
-import { pluginAntfu } from '../plugins'
+import { pluginFonds } from '../plugins'
 import { interopDefault, renameRules } from '../utils'
 
 export async function typescript(
@@ -97,16 +97,16 @@ export async function typescript(
           ...parserOptions as any,
         },
       },
-      name: `antfu/typescript/${typeAware ? 'type-aware-parser' : 'parser'}`,
+      name: `fonds/typescript/${typeAware ? 'type-aware-parser' : 'parser'}`,
     }
   }
 
   return [
     {
       // Install the plugins without globs, so they can be configured separately.
-      name: 'antfu/typescript/setup',
+      name: 'fonds/typescript/setup',
       plugins: {
-        antfu: pluginAntfu,
+        antfu: pluginFonds,
         ts: pluginTs as any,
       },
     },
@@ -121,7 +121,7 @@ export async function typescript(
         ],
     {
       files,
-      name: 'antfu/typescript/rules',
+      name: 'fonds/typescript/rules',
       rules: {
         ...renameRules(
           pluginTs.configs['eslint-recommended'].overrides![0].rules!,
@@ -183,7 +183,7 @@ export async function typescript(
       ? [{
           files: filesTypeAware,
           ignores: ignoresTypeAware,
-          name: 'antfu/typescript/rules-type-aware',
+          name: 'fonds/typescript/rules-type-aware',
           rules: {
             ...typeAwareRules,
             ...overridesTypeAware,
@@ -193,7 +193,7 @@ export async function typescript(
     ...erasableOnly
       ? [
           {
-            name: 'antfu/typescript/erasable-syntax-only',
+            name: 'fonds/typescript/erasable-syntax-only',
             plugins: {
               'erasable-syntax-only': await interopDefault(import('eslint-plugin-erasable-syntax-only')),
             },

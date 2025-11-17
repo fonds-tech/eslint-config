@@ -338,7 +338,7 @@ importers:
         specifier: catalog:prod
         version: 1.3.0
     devDependencies:
-      '@antfu/eslint-config':
+      '@fonds/eslint-config':
         specifier: workspace:*
         version: 'link:'
       '@antfu/ni':

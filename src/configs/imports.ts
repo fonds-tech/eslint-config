@@ -1,5 +1,5 @@
 import type { OptionsOverrides, OptionsStylistic, TypedFlatConfigItem } from '../types'
-import { pluginAntfu, pluginImportLite } from '../plugins'
+import { pluginFonds, pluginImportLite } from '../plugins'
 
 export async function imports(options: OptionsOverrides & OptionsStylistic = {}): Promise<TypedFlatConfigItem[]> {
   const {
@@ -9,9 +9,9 @@ export async function imports(options: OptionsOverrides & OptionsStylistic = {})
 
   return [
     {
-      name: 'antfu/imports/rules',
+      name: 'fonds/imports/rules',
       plugins: {
-        antfu: pluginAntfu,
+        antfu: pluginFonds,
         import: pluginImportLite,
       },
       rules: {

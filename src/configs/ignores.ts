@@ -20,7 +20,7 @@ export async function ignores(userIgnores: string[] | ((originals: string[]) => 
   return [
     {
       ignores,
-      name: 'antfu/ignores',
+      name: 'fonds/ignores',
     },
   ]
 }

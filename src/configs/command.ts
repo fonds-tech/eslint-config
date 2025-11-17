@@ -6,7 +6,7 @@ export async function command(): Promise<TypedFlatConfigItem[]> {
   return [
     {
       ...createCommand() as any,
-      name: 'antfu/command/rules',
+      name: 'fonds/command/rules',
     },
   ]
 }

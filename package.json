@@ -1,19 +1,18 @@
 {
-  "name": "@antfu/eslint-config",
+  "name": "@fonds/eslint-config",
   "type": "module",
   "version": "6.2.0",
   "packageManager": "pnpm@10.20.0",
-  "description": "Anthony's ESLint config",
-  "author": "Anthony Fu <anthonyfu117@hotmail.com> (https://github.com/antfu/)",
+  "description": "Fonds's ESLint config",
+  "author": "https://github.com/fonds-tech",
   "license": "MIT",
-  "funding": "https://github.com/sponsors/antfu",
-  "homepage": "https://github.com/antfu/eslint-config",
+  "homepage": "https://github.com/fonds-tech/eslint-config",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/antfu/eslint-config.git"
+    "url": "git+https://github.com/fonds-tech/eslint-config.git"
   },
   "bugs": {
-    "url": "https://github.com/antfu/eslint-config/issues"
+    "url": "https://github.com/fonds-tech/eslint-config/issues"
   },
   "keywords": [
     "eslint-config"
@@ -150,10 +149,10 @@
     "yaml-eslint-parser": "catalog:prod"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "workspace:*",
     "@antfu/ni": "catalog:dev",
     "@eslint-react/eslint-plugin": "catalog:peer",
     "@eslint/config-inspector": "catalog:dev",
+    "@fonds/eslint-config": "workspace:*",
     "@next/eslint-plugin-next": "catalog:peer",
     "@prettier/plugin-xml": "catalog:peer",
     "@types/eslint-plugin-jsx-a11y": "catalog:dev",

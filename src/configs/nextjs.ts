@@ -27,13 +27,13 @@ export async function nextjs(
   function getRules(name: keyof typeof pluginNextJS.configs): Record<string, any> {
     const rules = pluginNextJS.configs?.[name]?.rules
     if (!rules)
-      throw new Error(`[@antfu/eslint-config] Failed to find config ${name} in @next/eslint-plugin-next`)
+      throw new Error(`[@fonds/eslint-config] Failed to find config ${name} in @next/eslint-plugin-next`)
     return normalizeRules(rules)
   }
 
   return [
     {
-      name: 'antfu/nextjs/setup',
+      name: 'fonds/nextjs/setup',
       plugins: {
         next: pluginNextJS,
       },
@@ -48,7 +48,7 @@ export async function nextjs(
         },
         sourceType: 'module',
       },
-      name: 'antfu/nextjs/rules',
+      name: 'fonds/nextjs/rules',
       rules: {
         ...getRules('recommended'),
         ...getRules('core-web-vitals'),

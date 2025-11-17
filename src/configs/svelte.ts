@@ -31,7 +31,7 @@ export async function svelte(
 
   return [
     {
-      name: 'antfu/svelte/setup',
+      name: 'fonds/svelte/setup',
       plugins: {
         svelte: pluginSvelte,
       },
@@ -47,7 +47,7 @@ export async function svelte(
             : null,
         },
       },
-      name: 'antfu/svelte/rules',
+      name: 'fonds/svelte/rules',
       processor: pluginSvelte.processors['.svelte'],
       rules: {
         'no-undef': 'off', // incompatible with most recent (attribute-form) generic types RFC
