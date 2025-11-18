@@ -1,4 +1,4 @@
-import type { OptionsOverrides, StylisticConfig, TypedFlatConfigItem } from '../types'
+import type { StylisticConfig, OptionsOverrides, TypedFlatConfigItem } from '../types'
 import { pluginFonds } from '../plugins'
 import { interopDefault } from '../utils'
 
@@ -50,6 +50,7 @@ export async function stylistic(
 
         'fonds/consistent-chaining': 'error',
         'fonds/consistent-list-newline': 'error',
+        'fonds/style-sort': 'error',
 
         ...(lessOpinionated
           ? {

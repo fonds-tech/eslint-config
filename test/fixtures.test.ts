@@ -1,11 +1,11 @@
 import type { OptionsConfig, TypedFlatConfigItem } from '../src/types'
+import { join, resolve } from 'node:path'
 
 import fs from 'node:fs/promises'
-import { join, resolve } from 'node:path'
-import { execa } from 'execa'
-import { glob } from 'tinyglobby'
 
-import { afterAll, beforeAll, it } from 'vitest'
+import { glob } from 'tinyglobby'
+import { execa } from 'execa'
+import { it, afterAll, beforeAll } from 'vitest'
 
 const isWindows = process.platform === 'win32'
 const timeout = isWindows ? 300_000 : 60_000

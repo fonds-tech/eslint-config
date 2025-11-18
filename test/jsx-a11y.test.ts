@@ -1,9 +1,9 @@
 import type { OptionsConfig, TypedFlatConfigItem } from '../src'
-import fs from 'node:fs/promises'
 import { resolve } from 'node:path'
-import { ESLint } from 'eslint'
-import { describe, expect, it } from 'vitest'
+import fs from 'node:fs/promises'
 import { fonds } from '../src'
+import { ESLint } from 'eslint'
+import { it, expect, describe } from 'vitest'
 
 type FondsFlatOptions = OptionsConfig & Omit<TypedFlatConfigItem, 'files'>
 

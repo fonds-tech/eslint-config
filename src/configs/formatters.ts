@@ -1,11 +1,9 @@
-import type { OptionsFormatters, StylisticConfig, TypedFlatConfigItem } from '../types'
 import type { VendoredPrettierOptions, VendoredPrettierRuleOptions } from '../vender/prettier-types'
-
+import type { StylisticConfig, OptionsFormatters, TypedFlatConfigItem } from '../types'
 import { isPackageExists } from 'local-pkg'
-import { GLOB_ASTRO, GLOB_ASTRO_TS, GLOB_CSS, GLOB_GRAPHQL, GLOB_HTML, GLOB_LESS, GLOB_MARKDOWN, GLOB_POSTCSS, GLOB_SCSS, GLOB_SVG, GLOB_XML } from '../globs'
-
-import { ensurePackages, interopDefault, isPackageInScope, parserPlain } from '../utils'
 import { StylisticConfigDefaults } from './stylistic'
+import { parserPlain, ensurePackages, interopDefault, isPackageInScope } from '../utils'
+import { GLOB_CSS, GLOB_SVG, GLOB_XML, GLOB_HTML, GLOB_LESS, GLOB_SCSS, GLOB_ASTRO, GLOB_GRAPHQL, GLOB_POSTCSS, GLOB_ASTRO_TS, GLOB_MARKDOWN } from '../globs'
 
 function mergePrettierOptions(
   options: VendoredPrettierOptions,

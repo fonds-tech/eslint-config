@@ -1,4 +1,4 @@
-import type { OptionsFiles, OptionsHasTypeScript, OptionsOverrides, OptionsStylistic, TypedFlatConfigItem } from '../types'
+import type { OptionsFiles, OptionsOverrides, OptionsStylistic, TypedFlatConfigItem, OptionsHasTypeScript } from '../types'
 
 import { GLOB_SVELTE } from '../globs'
 import { ensurePackages, interopDefault } from '../utils'

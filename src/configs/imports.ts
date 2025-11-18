@@ -16,6 +16,7 @@ export async function imports(options: OptionsOverrides & OptionsStylistic = {})
       },
       rules: {
         'fonds/import-dedupe': 'error',
+        'fonds/import-sort': 'error',
         'fonds/no-import-dist': 'error',
         'fonds/no-import-node-modules-by-path': 'error',
 

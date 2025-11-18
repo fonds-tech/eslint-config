@@ -1,14 +1,14 @@
 import type {
+  OptionsVue,
   OptionsFiles,
-  OptionsHasTypeScript,
   OptionsOverrides,
   OptionsStylistic,
-  OptionsVue,
   TypedFlatConfigItem,
+  OptionsHasTypeScript,
 } from '../types'
 
-import { mergeProcessors } from 'eslint-merge-processors'
 import { GLOB_VUE } from '../globs'
+import { mergeProcessors } from 'eslint-merge-processors'
 import { ensurePackages, interopDefault } from '../utils'
 
 export async function vue(

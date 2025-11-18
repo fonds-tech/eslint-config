@@ -1,4 +1,4 @@
-import type { OptionsFiles, OptionsIsInEditor, OptionsOverrides, TypedFlatConfigItem } from '../types'
+import type { OptionsFiles, OptionsOverrides, OptionsIsInEditor, TypedFlatConfigItem } from '../types'
 
 import { GLOB_TESTS } from '../globs'
 import { interopDefault } from '../utils'

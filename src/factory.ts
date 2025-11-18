@@ -2,41 +2,41 @@ import type { Linter } from 'eslint'
 import type { RuleOptions } from './typegen'
 import type { Awaitable, ConfigNames, OptionsConfig, TypedFlatConfigItem } from './types'
 
-import { FlatConfigComposer } from 'eslint-flat-config-utils'
+import { regexp } from './configs/regexp'
+import { formatters } from './configs/formatters'
 import { isPackageExists } from 'local-pkg'
+import { FlatConfigComposer } from 'eslint-flat-config-utils'
+import { isInEditorEnv, interopDefault } from './utils'
 import {
-  astro,
-  command,
-  comments,
-  disables,
-  ignores,
-  imports,
-  javascript,
-  jsdoc,
-  jsonc,
   jsx,
-  markdown,
-  nextjs,
+  vue,
   node,
-  perfectionist,
   pnpm,
-  react,
-  solid,
-  sortPackageJson,
-  sortTsconfig,
-  stylistic,
-  svelte,
   test,
   toml,
-  typescript,
-  unicorn,
-  unocss,
-  vue,
   yaml,
+  astro,
+  jsdoc,
+  jsonc,
+  react,
+  solid,
+  nextjs,
+  svelte,
+  unocss,
+  command,
+  ignores,
+  imports,
+  unicorn,
+  comments,
+  disables,
+  markdown,
+  stylistic,
+  javascript,
+  typescript,
+  sortTsconfig,
+  perfectionist,
+  sortPackageJson,
 } from './configs'
-import { formatters } from './configs/formatters'
-import { regexp } from './configs/regexp'
-import { interopDefault, isInEditorEnv } from './utils'
 
 const flatConfigProps = [
   'name',

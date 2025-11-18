@@ -2,14 +2,14 @@ import type { PromptResult } from '../types'
 
 import fs from 'node:fs'
 import fsp from 'node:fs/promises'
+
 import path from 'node:path'
 import process from 'node:process'
-import * as p from '@clack/prompts'
+import { getEslintConfigContent } from '../utils'
 import c from 'ansis'
 // @ts-expect-error missing types
 import parse from 'parse-gitignore'
-
-import { getEslintConfigContent } from '../utils'
+import * as p from '@clack/prompts'
 
 export async function updateEslintFiles(result: PromptResult): Promise<void> {
   const cwd = process.cwd()

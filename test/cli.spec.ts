@@ -1,9 +1,8 @@
-import fs from 'node:fs/promises'
 import { join } from 'node:path'
+import fs from 'node:fs/promises'
 import process from 'node:process'
-
 import { execa } from 'execa'
-import { afterAll, beforeEach, expect, it } from 'vitest'
+import { it, expect, afterAll, beforeEach } from 'vitest'
 
 const CLI_PATH = join(__dirname, '../bin/index.js')
 const genPath = join(__dirname, '..', '.temp', randomStr())

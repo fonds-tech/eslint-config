@@ -1,11 +1,9 @@
 import process from 'node:process'
-
-import * as p from '@clack/prompts'
-import c from 'ansis'
-import { cac } from 'cac'
-
-import { version } from '../../package.json'
 import { run } from './run'
+import { cac } from 'cac'
+import { version } from '../../package.json'
+import c from 'ansis'
+import * as p from '@clack/prompts'
 
 function header(): void {
   console.log('\n')
