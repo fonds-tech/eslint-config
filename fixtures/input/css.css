@@ -1,5 +1,6 @@
+/* CSS 格式化示例：用于验证 formatter 能处理媒体查询中的属性 */
 @media (max-width: 480px) {
-  .bd-examples {margin-right: -.75rem;margin-left: -.75rem
+  .bd-examples {margin-right: -.75rem;margin-left: -.75rem;
   }
   
  .bd-examples>[class^="col-"]  {
