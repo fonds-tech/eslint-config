@@ -127,7 +127,8 @@ export async function vue(
         'vue/block-order': ['error', {
           order: ['template', 'script', 'style'],
         }],
-        'vue/component-name-in-template-casing': ['error', 'PascalCase'],
+        'vue/component-definition-name-casing': ['error', 'kebab-case'],
+        'vue/component-name-in-template-casing': ['error', 'kebab-case'],
         'vue/component-options-name-casing': ['error', 'kebab-case'],
         // this is deprecated
         'vue/component-tags-order': 'off',
