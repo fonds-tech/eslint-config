@@ -124,7 +124,7 @@ export async function vue(
         'ts/explicit-function-return-type': 'off',
 
         'vue/block-order': ['error', {
-          order: ['script', 'template', 'style'],
+          order: ['template', 'script', 'style'],
         }],
         'vue/component-name-in-template-casing': ['error', 'PascalCase'],
         'vue/component-options-name-casing': ['error', 'PascalCase'],
@@ -139,6 +139,7 @@ export async function vue(
         'vue/eqeqeq': ['error', 'smart'],
         'vue/html-indent': ['error', indent],
         'vue/html-quotes': ['error', 'double'],
+        'vue/html-self-closing': 'off',
         'vue/max-attributes-per-line': 'off',
         'vue/multi-word-component-names': 'off',
         'vue/no-dupe-keys': 'off',
