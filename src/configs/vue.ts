@@ -123,11 +123,12 @@ export async function vue(
         'node/prefer-global/process': 'off',
         'ts/explicit-function-return-type': 'off',
 
+        'vue/attribute-hyphenation': ['error', 'always'],
         'vue/block-order': ['error', {
           order: ['template', 'script', 'style'],
         }],
         'vue/component-name-in-template-casing': ['error', 'PascalCase'],
-        'vue/component-options-name-casing': ['error', 'PascalCase'],
+        'vue/component-options-name-casing': ['error', 'kebab-case'],
         // this is deprecated
         'vue/component-tags-order': 'off',
         'vue/custom-event-name-casing': ['error', 'camelCase'],

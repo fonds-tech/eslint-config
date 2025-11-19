@@ -158,7 +158,7 @@ export async function typescript(
           allowTernary: true,
         }],
         'ts/no-unused-vars': 'off',
-        'ts/no-use-before-define': ['error', { classes: false, functions: false, variables: true }],
+        'ts/no-use-before-define': 'off',
         'ts/no-useless-constructor': 'off',
         'ts/no-wrapper-object-types': 'error',
         'ts/triple-slash-reference': 'off',
