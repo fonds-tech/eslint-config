@@ -1,13 +1,13 @@
-import type { OptionsConfig, TypedFlatConfigItem } from '../src'
-import { resolve } from 'node:path'
-import fs from 'node:fs/promises'
-import { fonds } from '../src'
-import { ESLint } from 'eslint'
-import { it, expect, describe } from 'vitest'
+import type { OptionsConfig, TypedFlatConfigItem } from "../src"
+import fs from "node:fs/promises"
+import { resolve } from "node:path"
+import { fonds } from "../src"
+import { ESLint } from "eslint"
+import { it, expect, describe } from "vitest"
 
-type FondsFlatOptions = OptionsConfig & Omit<TypedFlatConfigItem, 'files'>
+type FondsFlatOptions = OptionsConfig & Omit<TypedFlatConfigItem, "files">
 
-describe('jsx-a11y rules', () => {
+describe("jsx-a11y rules", () => {
   const createESLint = async (options?: FondsFlatOptions) => {
     const baseOptions = {
       react: true,
@@ -31,42 +31,42 @@ describe('jsx-a11y rules', () => {
   }
 
   const readFixture = async (filePath: string) => {
-    const fullPath = resolve('fixtures', filePath)
-    return await fs.readFile(fullPath, 'utf-8')
+    const fullPath = resolve("fixtures", filePath)
+    return await fs.readFile(fullPath, "utf-8")
   }
 
-  it('should catch invalid anchor href', async () => {
+  it("should catch invalid anchor href", async () => {
     const eslint = await createESLint()
-    const code = await readFixture('jsx-a11y-errors/invalid-anchor-href.jsx')
+    const code = await readFixture("jsx-a11y-errors/invalid-anchor-href.jsx")
 
-    const results = await eslint.lintText(code, { filePath: 'test.jsx' })
-    const errors = results[0].messages.filter(msg => msg.ruleId?.startsWith('jsx-a11y/'))
+    const results = await eslint.lintText(code, { filePath: "test.jsx" })
+    const errors = results[0].messages.filter(msg => msg.ruleId?.startsWith("jsx-a11y/"))
 
     expect(errors.length).toBeGreaterThan(0)
   })
 
-  it('should ignore a11y error if not enabled', async () => {
+  it("should ignore a11y error if not enabled", async () => {
     const eslint = await createESLint({ jsx: { a11y: false } })
-    const code = await readFixture('jsx-a11y-errors/invalid-anchor-href.jsx')
+    const code = await readFixture("jsx-a11y-errors/invalid-anchor-href.jsx")
 
-    const results = await eslint.lintText(code, { filePath: 'test.jsx' })
-    const errors = results[0].messages.filter(msg => msg.ruleId?.startsWith('jsx-a11y/'))
+    const results = await eslint.lintText(code, { filePath: "test.jsx" })
+    const errors = results[0].messages.filter(msg => msg.ruleId?.startsWith("jsx-a11y/"))
 
     expect(errors.length).toBe(0)
   })
 
-  it('should allow valid accessible JSX', async () => {
+  it("should allow valid accessible JSX", async () => {
     const eslint = await createESLint()
-    const code = await readFixture('jsx-a11y-valid/accessible-elements.jsx')
+    const code = await readFixture("jsx-a11y-valid/accessible-elements.jsx")
 
-    const results = await eslint.lintText(code, { filePath: 'test.jsx' })
-    const a11yErrors = results[0].messages.filter(msg => msg.ruleId?.startsWith('jsx-a11y/'))
+    const results = await eslint.lintText(code, { filePath: "test.jsx" })
+    const a11yErrors = results[0].messages.filter(msg => msg.ruleId?.startsWith("jsx-a11y/"))
 
     expect(a11yErrors.length).toBe(0)
   })
 
-  it('should respect a11y override in ESLint config', async () => {
-    const code = await readFixture('jsx-a11y-errors/invalid-anchor-href.jsx')
+  it("should respect a11y override in ESLint config", async () => {
+    const code = await readFixture("jsx-a11y-errors/invalid-anchor-href.jsx")
 
     const configs = await fonds({
       react: true,
@@ -76,7 +76,7 @@ describe('jsx-a11y rules', () => {
       jsx: {
         a11y: {
           overrides: {
-            'jsx-a11y/anchor-is-valid': 'off',
+            "jsx-a11y/anchor-is-valid": "off",
           },
         },
       },
@@ -87,8 +87,8 @@ describe('jsx-a11y rules', () => {
       overrideConfig: configs as any,
     })
 
-    const results = await eslint.lintText(code, { filePath: 'test.jsx' })
-    const anchorErrors = results[0].messages.filter(msg => msg.ruleId === 'jsx-a11y/anchor-is-valid')
+    const results = await eslint.lintText(code, { filePath: "test.jsx" })
+    const anchorErrors = results[0].messages.filter(msg => msg.ruleId === "jsx-a11y/anchor-is-valid")
 
     expect(anchorErrors.length).toBe(0)
   })

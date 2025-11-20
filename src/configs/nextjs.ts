@@ -1,11 +1,11 @@
-import type { OptionsFiles, OptionsOverrides, TypedFlatConfigItem } from '../types'
-import { GLOB_SRC } from '../globs'
-import { ensurePackages, interopDefault } from '../utils'
+import type { OptionsFiles, OptionsOverrides, TypedFlatConfigItem } from "../types"
+import { GLOB_SRC } from "../globs"
+import { ensurePackages, interopDefault } from "../utils"
 
 function normalizeRules(rules: Record<string, any>): Record<string, any> {
   return Object.fromEntries(
     Object.entries(rules).map(([key, value]) =>
-      [key, typeof value === 'string' ? [value] : value],
+      [key, typeof value === "string" ? [value] : value],
     ),
   )
 }
@@ -19,10 +19,10 @@ export async function nextjs(
   } = options
 
   await ensurePackages([
-    '@next/eslint-plugin-next',
+    "@next/eslint-plugin-next",
   ])
 
-  const pluginNextJS = await interopDefault(import('@next/eslint-plugin-next'))
+  const pluginNextJS = await interopDefault(import("@next/eslint-plugin-next"))
 
   function getRules(name: keyof typeof pluginNextJS.configs): Record<string, any> {
     const rules = pluginNextJS.configs?.[name]?.rules
@@ -33,7 +33,7 @@ export async function nextjs(
 
   return [
     {
-      name: 'fonds/nextjs/setup',
+      name: "fonds/nextjs/setup",
       plugins: {
         next: pluginNextJS,
       },
@@ -46,19 +46,19 @@ export async function nextjs(
             jsx: true,
           },
         },
-        sourceType: 'module',
+        sourceType: "module",
       },
-      name: 'fonds/nextjs/rules',
+      name: "fonds/nextjs/rules",
       rules: {
-        ...getRules('recommended'),
-        ...getRules('core-web-vitals'),
+        ...getRules("recommended"),
+        ...getRules("core-web-vitals"),
 
         // overrides
         ...overrides,
       },
       settings: {
         react: {
-          version: 'detect',
+          version: "detect",
         },
       },
     },

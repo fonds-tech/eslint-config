@@ -18,9 +18,9 @@ class Person {
 
 // Create an array of objects
 const people = [
-  new Person('Alice', 30),
-  new Person('Bob', 25),
-  new Person('Charlie', 35),
+  new Person("Alice", 30),
+  new Person("Bob", 25),
+  new Person("Charlie", 35),
 ]
 
 // Use the forEach method to iterate over the array
@@ -46,20 +46,20 @@ log(newNumbers)
 // Use a try-catch block for error handling
 try {
   // Attempt to parse an invalid JSON string
-  JSON.parse('invalid JSON')
+  JSON.parse("invalid JSON")
 }
 catch (error) {
-  console.error('Error parsing JSON:', error.message)
+  console.error("Error parsing JSON:", error.message)
 }
 
 // Use a ternary conditional operator
 const isEven = num => num % 2 === 0
 const number = 7
-log(`${number} is ${isEven(number) ? 'even' : 'odd'}.`)
+log(`${number} is ${isEven(number) ? "even" : "odd"}.`)
 
 // Use a callback function with setTimeout for asynchronous code
 setTimeout(() => {
-  log('This code runs after a delay of 2 seconds.')
+  log("This code runs after a delay of 2 seconds.")
 }, 2000)
 
 let a, b, c, d, foo

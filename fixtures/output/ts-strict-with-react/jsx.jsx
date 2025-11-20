@@ -1,15 +1,15 @@
-import React from 'react'
+import React from "react"
 
 export function HelloWorld({
-  greeting = 'hello',
-  greeted = '"World"',
+  greeting = "hello",
+  greeted = "\"World\"",
   silent = false,
   onMouseOver,
 }) {
   const [num] = React.useState(() => Math
     .floor (Math.random() * 1e+7)
     .toString()
-    .replace(/\.\d+/g, ''))
+    .replace(/\.\d+/g, ""))
 
   if (!greeting) {
     return null
@@ -18,13 +18,13 @@ export function HelloWorld({
   return (
     <div className="HelloWorld" title={`You are visitor number ${num}`} onMouseOver={onMouseOver}>
       <strong>{ greeting.slice(0, 1).toUpperCase() + greeting.slice(1).toLowerCase() }</strong>
-      {greeting.endsWith(',')
-        ? ' '
-        : <span style={{ color: '\grey' }}>", "</span> }
+      {greeting.endsWith(",")
+        ? " "
+        : <span style={{ color: "\grey" }}>", "</span> }
       <em>
         { greeted }
       </em>
-      { (silent) ? '.' : '!'}
+      { (silent) ? "." : "!"}
     </div>
   )
 }

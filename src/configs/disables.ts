@@ -1,57 +1,57 @@
-import type { TypedFlatConfigItem } from '../types'
+import type { TypedFlatConfigItem } from "../types"
 
-import { GLOB_SRC, GLOB_SRC_EXT } from '../globs'
+import { GLOB_SRC, GLOB_SRC_EXT } from "../globs"
 
 export async function disables(): Promise<TypedFlatConfigItem[]> {
   return [
     {
       files: [`**/scripts/${GLOB_SRC}`],
-      name: 'fonds/disables/scripts',
+      name: "fonds/disables/scripts",
       rules: {
-        'fonds/no-top-level-await': 'off',
-        'no-console': 'off',
-        'ts/explicit-function-return-type': 'off',
+        "fonds/no-top-level-await": "off",
+        "no-console": "off",
+        "ts/explicit-function-return-type": "off",
       },
     },
     {
       files: [`**/cli/${GLOB_SRC}`, `**/cli.${GLOB_SRC_EXT}`],
-      name: 'fonds/disables/cli',
+      name: "fonds/disables/cli",
       rules: {
-        'fonds/no-top-level-await': 'off',
-        'no-console': 'off',
+        "fonds/no-top-level-await": "off",
+        "no-console": "off",
       },
     },
     {
-      files: ['**/bin/**/*', `**/bin.${GLOB_SRC_EXT}`],
-      name: 'fonds/disables/bin',
+      files: ["**/bin/**/*", `**/bin.${GLOB_SRC_EXT}`],
+      name: "fonds/disables/bin",
       rules: {
-        'fonds/no-import-dist': 'off',
-        'fonds/no-import-node-modules-by-path': 'off',
+        "fonds/no-import-dist": "off",
+        "fonds/no-import-node-modules-by-path": "off",
       },
     },
     {
-      files: ['**/*.d.?([cm])ts'],
-      name: 'fonds/disables/dts',
+      files: ["**/*.d.?([cm])ts"],
+      name: "fonds/disables/dts",
       rules: {
-        'eslint-comments/no-unlimited-disable': 'off',
-        'no-restricted-syntax': 'off',
-        'unused-imports/no-unused-vars': 'off',
+        "eslint-comments/no-unlimited-disable": "off",
+        "no-restricted-syntax": "off",
+        "unused-imports/no-unused-vars": "off",
       },
     },
     {
-      files: ['**/*.js', '**/*.cjs'],
-      name: 'fonds/disables/cjs',
+      files: ["**/*.js", "**/*.cjs"],
+      name: "fonds/disables/cjs",
       rules: {
-        'ts/no-require-imports': 'off',
+        "ts/no-require-imports": "off",
       },
     },
     {
       files: [`**/*.config.${GLOB_SRC_EXT}`, `**/*.config.*.${GLOB_SRC_EXT}`],
-      name: 'fonds/disables/config-files',
+      name: "fonds/disables/config-files",
       rules: {
-        'fonds/no-top-level-await': 'off',
-        'no-console': 'off',
-        'ts/explicit-function-return-type': 'off',
+        "fonds/no-top-level-await": "off",
+        "no-console": "off",
+        "ts/explicit-function-return-type": "off",
       },
     },
   ]

@@ -1,11 +1,11 @@
-import type { StylisticConfig, OptionsOverrides, TypedFlatConfigItem } from '../types'
-import { pluginFonds } from '../plugins'
-import { interopDefault } from '../utils'
+import type { StylisticConfig, OptionsOverrides, TypedFlatConfigItem } from "../types"
+import { pluginFonds } from "../plugins"
+import { interopDefault } from "../utils"
 
 export const StylisticConfigDefaults: StylisticConfig = {
   indent: 2,
   jsx: true,
-  quotes: 'single',
+  quotes: "double",
   semi: false,
 }
 
@@ -28,19 +28,19 @@ export async function stylistic(
     ...options,
   }
 
-  const pluginStylistic = await interopDefault(import('@stylistic/eslint-plugin'))
+  const pluginStylistic = await interopDefault(import("@stylistic/eslint-plugin"))
 
   const config = pluginStylistic.configs.customize({
     indent,
     jsx,
-    pluginName: 'style',
+    pluginName: "style",
     quotes,
     semi,
   }) as TypedFlatConfigItem
 
   return [
     {
-      name: 'fonds/stylistic/rules',
+      name: "fonds/stylistic/rules",
       plugins: {
         fonds: pluginFonds,
         style: pluginStylistic,
@@ -48,23 +48,23 @@ export async function stylistic(
       rules: {
         ...config.rules,
 
-        'fonds/consistent-chaining': 'error',
-        'fonds/consistent-list-newline': 'error',
-        'fonds/style-sort': 'error',
+        "fonds/consistent-chaining": "error",
+        "fonds/consistent-list-newline": "error",
+        "fonds/style-sort": "error",
 
         ...(lessOpinionated
           ? {
-              curly: ['error', 'all'],
+              curly: ["error", "all"],
             }
           : {
-              'fonds/curly': 'error',
-              'fonds/if-newline': 'error',
-              'fonds/top-level-function': 'error',
+              "fonds/curly": "error",
+              "fonds/if-newline": "error",
+              "fonds/top-level-function": "error",
             }
         ),
 
-        'style/generator-star-spacing': ['error', { after: true, before: false }],
-        'style/yield-star-spacing': ['error', { after: true, before: false }],
+        "style/generator-star-spacing": ["error", { after: true, before: false }],
+        "style/yield-star-spacing": ["error", { after: true, before: false }],
 
         ...overrides,
       },

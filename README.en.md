@@ -45,27 +45,27 @@ pnpm add -D @eslint-react/eslint-plugin eslint-plugin-react-hooks eslint-plugin-
 
 ```ts
 // eslint.config.ts
-import fonds from '@fonds/eslint-config'
+import fonds from "@fonds/eslint-config"
 
 export default fonds(
   {
     typescript: {
-      tsconfigPath: './tsconfig.json', // Allow TypeScript-aware linting on project files.
+      tsconfigPath: "./tsconfig.json", // Allow TypeScript-aware linting on project files.
     },
     vue: {
       sfcBlocks: true, // Create virtual files so <script setup> and style blocks get linted.
     },
     react: false, // Disable frameworks you do not use to skip unnecessary peers.
     formatters: {
-      markdown: 'prettier', // Delegate Markdown formatting to Prettier through eslint-plugin-format.
+      markdown: "prettier", // Delegate Markdown formatting to Prettier through eslint-plugin-format.
     },
     lessOpinionated: true, // Toggle off some highly opinionated stylistic picks from this preset.
   },
   {
-    files: ['src/**/*.ts'],
+    files: ["src/**/*.ts"],
     rules: {
-      'ts/consistent-type-imports': ['error', { fixStyle: 'inline-type-imports' }],
-      'import/order': 'off', // Example override that applies after the core config is composed.
+      "ts/consistent-type-imports": ["error", { fixStyle: "inline-type-imports" }],
+      "import/order": "off", // Example override that applies after the core config is composed.
     },
   },
 )

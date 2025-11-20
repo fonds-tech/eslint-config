@@ -6,9 +6,9 @@ type Person = {
 
 // Create an array of objects with the defined interface
 const people: Person[] = [
-  { name: 'Alice', age: 30 },
-  { name: 'Bob', age: 25 },
-  { name: 'Charlie', age: 35 },
+  { name: "Alice", age: 30 },
+  { name: "Bob", age: 25 },
+  { name: "Charlie", age: 35 },
 ]
 
 // eslint-disable-next-line no-console
@@ -26,7 +26,7 @@ function identity<T>(arg: T): T {
 
 // Use the generic function with type inference
 const result = identity(
-  'TypeScript is awesome',
+  "TypeScript is awesome",
 )
 log(result)
 
@@ -37,18 +37,18 @@ type Car = {
 }
 
 // Create objects using the interface
-const car1: Car = { make: 'Toyota' }
+const car1: Car = { make: "Toyota" }
 const car2: Car = {
-  make: 'Ford',
-  model: 'Focus',
+  make: "Ford",
+  model: "Focus",
 }
 
 // Use union types
-type Fruit = 'apple' | 'banana' | 'orange'
-const favoriteFruit: Fruit = 'apple'
+type Fruit = "apple" | "banana" | "orange"
+const favoriteFruit: Fruit = "apple"
 
 // Use a type assertion to tell TypeScript about the type
-const inputValue: any = '42'
+const inputValue: any = "42"
 const numericValue = inputValue as number
 
 // Define a class with access modifiers
@@ -70,11 +70,11 @@ class Dog extends Animal {
   }
 
   bark() {
-    this.makeSound('Woof!')
+    this.makeSound("Woof!")
   }
 }
 
-const dog = new Dog('Buddy')
+const dog = new Dog("Buddy")
 dog.bark()
 
 function fn(): string {

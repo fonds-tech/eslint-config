@@ -1,9 +1,9 @@
-import { fonds } from './factory'
+import { fonds } from "./factory"
 
-export * from './configs'
-export * from './factory'
-export * from './globs'
-export * from './types'
-export * from './utils'
+export * from "./configs"
+export * from "./factory"
+export * from "./globs"
+export * from "./types"
+export * from "./utils"
 
 export default fonds

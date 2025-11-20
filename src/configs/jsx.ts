@@ -1,6 +1,6 @@
-import type { OptionsJSX, TypedFlatConfigItem } from '../types'
-import { GLOB_JSX, GLOB_TSX } from '../globs'
-import { ensurePackages, interopDefault } from '../utils'
+import type { OptionsJSX, TypedFlatConfigItem } from "../types"
+import { GLOB_JSX, GLOB_TSX } from "../globs"
+import { ensurePackages, interopDefault } from "../utils"
 
 export async function jsx(options: OptionsJSX = {}): Promise<TypedFlatConfigItem[]> {
   const { a11y } = options
@@ -15,7 +15,7 @@ export async function jsx(options: OptionsJSX = {}): Promise<TypedFlatConfigItem
         },
       },
     },
-    name: 'fonds/jsx/setup',
+    name: "fonds/jsx/setup",
     plugins: {},
     rules: {},
   }
@@ -25,13 +25,13 @@ export async function jsx(options: OptionsJSX = {}): Promise<TypedFlatConfigItem
     return [baseConfig]
   }
 
-  await ensurePackages(['eslint-plugin-jsx-a11y'])
-  const jsxA11yPlugin = await interopDefault(import('eslint-plugin-jsx-a11y'))
+  await ensurePackages(["eslint-plugin-jsx-a11y"])
+  const jsxA11yPlugin = await interopDefault(import("eslint-plugin-jsx-a11y"))
   const a11yConfig = jsxA11yPlugin.flatConfigs.recommended
 
   const a11yRules = {
     ...(a11yConfig.rules || {}),
-    ...(typeof a11y === 'object' && a11y.overrides ? a11y.overrides : {}),
+    ...(typeof a11y === "object" && a11y.overrides ? a11y.overrides : {}),
   }
 
   // Merge base config with a11y configuration
@@ -47,7 +47,7 @@ export async function jsx(options: OptionsJSX = {}): Promise<TypedFlatConfigItem
       name: baseConfig.name,
       plugins: {
         ...baseConfig.plugins,
-        'jsx-a11y': jsxA11yPlugin,
+        "jsx-a11y": jsxA11yPlugin,
       },
       rules: {
         ...baseConfig.rules,

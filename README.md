@@ -41,27 +41,27 @@ pnpm add -D @eslint-react/eslint-plugin eslint-plugin-react-hooks eslint-plugin-
 
 ```ts
 // eslint.config.ts
-import fonds from '@fonds/eslint-config'
+import fonds from "@fonds/eslint-config"
 
 export default fonds(
   {
     typescript: {
-      tsconfigPath: './tsconfig.json', // 让 TypeScript 规则具备类型感知能力。
+      tsconfigPath: "./tsconfig.json", // 让 TypeScript 规则具备类型感知能力。
     },
     vue: {
       sfcBlocks: true, // 为 <script setup> 等分块生成虚拟文件，提高 lint 覆盖率。
     },
     react: false, // 不使用的框架务必关闭，避免额外 peer 依赖。
     formatters: {
-      markdown: 'prettier', // 通过 eslint-plugin-format 把 Markdown 格式化交给 Prettier。
+      markdown: "prettier", // 通过 eslint-plugin-format 把 Markdown 格式化交给 Prettier。
     },
     lessOpinionated: true, // 关闭预设里更强势的个性化规则。
   },
   {
-    files: ['src/**/*.ts'],
+    files: ["src/**/*.ts"],
     rules: {
-      'ts/consistent-type-imports': ['error', { fixStyle: 'inline-type-imports' }],
-      'import/order': 'off', // 示范：在组合完成后继续覆写特定规则。
+      "ts/consistent-type-imports": ["error", { fixStyle: "inline-type-imports" }],
+      "import/order": "off", // 示范：在组合完成后继续覆写特定规则。
     },
   },
 )

@@ -1,10 +1,10 @@
-import fs from 'node:fs/promises'
-import { fonds } from '../src/factory'
-import { Linter } from 'eslint'
-import { flatConfigsToRulesDTS } from 'eslint-typegen/core'
+import fs from "node:fs/promises"
+import { fonds } from "../src/factory"
+import { Linter } from "eslint"
+import { flatConfigsToRulesDTS } from "eslint-typegen/core"
 
 // 强制使用 eslintrc 模式以便在 ESLint 9 flat config 下仍能读取内置规则
-const builtinRules = new Linter({ configType: 'eslintrc' }).getRules()
+const builtinRules = new Linter({ configType: "eslintrc" }).getRules()
 
 const configs = await fonds({
   astro: true,
@@ -24,7 +24,7 @@ const configs = await fonds({
   gitignore: true,
   svelte: true,
   typescript: {
-    tsconfigPath: 'tsconfig.json',
+    tsconfigPath: "tsconfig.json",
     erasableOnly: true,
   },
   unicorn: true,
@@ -39,7 +39,7 @@ const configs = await fonds({
   .prepend(
     {
       plugins: {
-        '': {
+        "": {
           rules: Object.fromEntries(builtinRules.entries()),
         },
       },
@@ -54,7 +54,7 @@ let dts = await flatConfigsToRulesDTS(configs, {
 
 dts += `
 // Names of all the configs
-export type ConfigNames = ${configNames.map(i => `'${i}'`).join(' | ')}
+export type ConfigNames = ${configNames.map(i => `'${i}'`).join(" | ")}
 `
 
-await fs.writeFile('src/typegen.d.ts', dts)
+await fs.writeFile("src/typegen.d.ts", dts)

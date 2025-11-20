@@ -1,13 +1,13 @@
-import type { TypedFlatConfigItem } from '../types'
+import type { TypedFlatConfigItem } from "../types"
 
-import { GLOB_EXCLUDE } from '../globs'
+import { GLOB_EXCLUDE } from "../globs"
 
 export async function ignores(userIgnores: string[] | ((originals: string[]) => string[]) = []): Promise<TypedFlatConfigItem[]> {
   let ignores = [
     ...GLOB_EXCLUDE,
   ]
 
-  if (typeof userIgnores === 'function') {
+  if (typeof userIgnores === "function") {
     ignores = userIgnores(ignores)
   }
   else {
@@ -20,7 +20,7 @@ export async function ignores(userIgnores: string[] | ((originals: string[]) => 
   return [
     {
       ignores,
-      name: 'fonds/ignores',
+      name: "fonds/ignores",
     },
   ]
 }
