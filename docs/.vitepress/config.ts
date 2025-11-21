@@ -1,6 +1,11 @@
+import process from "node:process"
 import { defineConfig } from "vitepress"
 
+const repository = process.env.GITHUB_REPOSITORY?.split("/")[1]
+const base = process.env.CI && repository ? `/${repository}/` : "/"
+
 export default defineConfig({
+  base,
   lang: "zh-CN",
   title: "@fonds/eslint-config",
   description: "Fonds Tech 的 ESLint Flat Config 工厂",
