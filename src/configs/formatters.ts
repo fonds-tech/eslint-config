@@ -19,6 +19,17 @@ function mergePrettierOptions(
   }
 }
 
+const formatterToggleKeys: (keyof OptionsFormatters)[] = [
+  "astro",
+  "css",
+  "graphql",
+  "html",
+  "markdown",
+  "slidev",
+  "svg",
+  "xml",
+]
+
 function resolveFormatterOptions(options: OptionsFormatters | true): OptionsFormatters {
   const isPrettierPluginXmlInScope = isPackageInScope("@prettier/plugin-xml")
 
@@ -35,6 +46,11 @@ function resolveFormatterOptions(options: OptionsFormatters | true): OptionsForm
 
   if (options === true)
     return resolvedDefaults
+
+  const hasToggleOverride = formatterToggleKeys.some(key => key in options)
+
+  if (hasToggleOverride)
+    return options
 
   return {
     ...resolvedDefaults,
