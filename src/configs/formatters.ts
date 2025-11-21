@@ -19,32 +19,43 @@ function mergePrettierOptions(
   }
 }
 
+function resolveFormatterOptions(options: OptionsFormatters | true): OptionsFormatters {
+  const isPrettierPluginXmlInScope = isPackageInScope("@prettier/plugin-xml")
+
+  const resolvedDefaults: OptionsFormatters = {
+    astro: isPackageInScope("prettier-plugin-astro"),
+    css: true,
+    graphql: true,
+    html: true,
+    markdown: true,
+    slidev: isPackageExists("@slidev/cli"),
+    svg: isPrettierPluginXmlInScope,
+    xml: isPrettierPluginXmlInScope,
+  }
+
+  if (options === true)
+    return resolvedDefaults
+
+  return {
+    ...resolvedDefaults,
+    ...options,
+  }
+}
+
 export async function formatters(
   options: OptionsFormatters | true = {},
   stylistic: StylisticConfig = {},
 ): Promise<TypedFlatConfigItem[]> {
-  if (options === true) {
-    const isPrettierPluginXmlInScope = isPackageInScope("@prettier/plugin-xml")
-    options = {
-      astro: isPackageInScope("prettier-plugin-astro"),
-      css: true,
-      graphql: true,
-      html: true,
-      markdown: true,
-      slidev: isPackageExists("@slidev/cli"),
-      svg: isPrettierPluginXmlInScope,
-      xml: isPrettierPluginXmlInScope,
-    }
-  }
+  const resolvedOptions = resolveFormatterOptions(options)
 
   await ensurePackages([
     "eslint-plugin-format",
-    options.markdown && options.slidev ? "prettier-plugin-slidev" : undefined,
-    options.astro ? "prettier-plugin-astro" : undefined,
-    (options.xml || options.svg) ? "@prettier/plugin-xml" : undefined,
+    resolvedOptions.markdown && resolvedOptions.slidev ? "prettier-plugin-slidev" : undefined,
+    resolvedOptions.astro ? "prettier-plugin-astro" : undefined,
+    (resolvedOptions.xml || resolvedOptions.svg) ? "@prettier/plugin-xml" : undefined,
   ])
 
-  if (options.slidev && options.markdown !== true && options.markdown !== "prettier")
+  if (resolvedOptions.slidev && resolvedOptions.markdown !== true && resolvedOptions.markdown !== "prettier")
     throw new Error("`slidev` option only works when `markdown` is enabled with `prettier`")
 
   const {
@@ -59,14 +70,14 @@ export async function formatters(
   const prettierOptions: VendoredPrettierOptions = Object.assign(
     {
       endOfLine: "auto",
-      printWidth: 120,
+      printWidth: 160,
       semi,
       singleQuote: quotes === "single",
       tabWidth: typeof indent === "number" ? indent : 2,
       trailingComma: "all",
       useTabs: indent === "tab",
     } satisfies VendoredPrettierOptions,
-    options.prettierOptions || {},
+    resolvedOptions.prettierOptions || {},
   )
 
   const prettierXmlOptions: VendoredPrettierOptions = {
@@ -82,7 +93,7 @@ export async function formatters(
       quoteStyle: quotes === "single" ? "preferSingle" : "preferDouble",
       useTabs: indent === "tab",
     },
-    options.dprintOptions || {},
+    resolvedOptions.dprintOptions || {},
   )
 
   const pluginFormat = await interopDefault(import("eslint-plugin-format"))
@@ -96,7 +107,7 @@ export async function formatters(
     },
   ]
 
-  if (options.css) {
+  if (resolvedOptions.css) {
     configs.push(
       {
         files: [GLOB_CSS, GLOB_POSTCSS],
@@ -146,7 +157,7 @@ export async function formatters(
     )
   }
 
-  if (options.html) {
+  if (resolvedOptions.html) {
     configs.push({
       files: [GLOB_HTML],
       languageOptions: {
@@ -164,7 +175,7 @@ export async function formatters(
     })
   }
 
-  if (options.xml) {
+  if (resolvedOptions.xml) {
     configs.push({
       files: [GLOB_XML],
       languageOptions: {
@@ -184,7 +195,7 @@ export async function formatters(
       },
     })
   }
-  if (options.svg) {
+  if (resolvedOptions.svg) {
     configs.push({
       files: [GLOB_SVG],
       languageOptions: {
@@ -205,16 +216,16 @@ export async function formatters(
     })
   }
 
-  if (options.markdown) {
-    const formater = options.markdown === true
+  if (resolvedOptions.markdown) {
+    const formater = resolvedOptions.markdown === true
       ? "prettier"
-      : options.markdown
+      : resolvedOptions.markdown
 
-    const GLOB_SLIDEV = !options.slidev
+    const GLOB_SLIDEV = !resolvedOptions.slidev
       ? []
-      : options.slidev === true
+      : resolvedOptions.slidev === true
         ? ["**/slides.md"]
-        : options.slidev.files
+        : resolvedOptions.slidev.files
 
     configs.push({
       files: [GLOB_MARKDOWN],
@@ -239,7 +250,7 @@ export async function formatters(
       },
     })
 
-    if (options.slidev) {
+    if (resolvedOptions.slidev) {
       configs.push({
         files: GLOB_SLIDEV,
         languageOptions: {
@@ -262,7 +273,7 @@ export async function formatters(
     }
   }
 
-  if (options.astro) {
+  if (resolvedOptions.astro) {
     configs.push({
       files: [GLOB_ASTRO],
       languageOptions: {
@@ -297,7 +308,7 @@ export async function formatters(
     })
   }
 
-  if (options.graphql) {
+  if (resolvedOptions.graphql) {
     configs.push({
       files: [GLOB_GRAPHQL],
       languageOptions: {

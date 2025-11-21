@@ -67,6 +67,25 @@ export default fonds(
 )
 ```
 
+### 自定义格式化参数
+
+将 `formatters` 设为 `true` 会自动启用各类 formatter；若想在保持该行为的同时覆写 Prettier 行为，只需传对象并提供 `prettierOptions`（未显式声明的语言仍旧沿用默认启用状态）：
+
+```ts
+const config = {
+  formatters: {
+    prettierOptions: {
+      printWidth: 180,
+      arrowParens: "always",
+      proseWrap: "always",
+      trailingComma: "all",
+    },
+  },
+}
+```
+
+上例会让 `format/prettier` 在保持自动检测文件类型的基础上，使用自定义的换行规则。
+
 - 第一个参数只能放全局选项（禁止包含 `files`）；后续参数可放任意 flat config 项或自定义插件。
 - 可结合 `FlatConfigComposer` 的能力继续 append/rename/disable 规则。
 

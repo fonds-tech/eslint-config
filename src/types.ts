@@ -86,6 +86,12 @@ export type OptionsTypescript
   = (OptionsTypeScriptWithTypes & OptionsOverrides & OptionsTypeScriptErasableOnly)
     | (OptionsTypeScriptParserOptions & OptionsOverrides & OptionsTypeScriptErasableOnly)
 
+/**
+ * Formatters configuration.
+ *
+ * Passing an object keeps every unspecified property aligned with the auto-detected defaults
+ * that `formatters: true` would enable.
+ */
 export interface OptionsFormatters {
   /**
    * Enable formatting support for CSS, Less, Sass, and SCSS.

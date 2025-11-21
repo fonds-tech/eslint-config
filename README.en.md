@@ -5,7 +5,8 @@
 <br>
 </div>
 
-A flat ESLint configuration maintained by the Fonds Tech team, published as `@fonds/eslint-config`, covering TypeScript, Vue, React, Svelte, Astro, UnoCSS, and formatter integrations with a composable factory.
+A flat ESLint configuration maintained by the Fonds Tech team, published as `@fonds/eslint-config`, covering TypeScript, Vue, React, Svelte, Astro, UnoCSS, and formatter
+integrations with a composable factory.
 
 ## Project Overview
 
@@ -71,6 +72,26 @@ export default fonds(
 )
 ```
 
+### Custom formatter options
+
+Setting `formatters: true` auto-enables every supported formatter. To override Prettier settings without losing that convenience, pass an object and provide `prettierOptions`—any
+language toggle you omit keeps its default autodetected value:
+
+```ts
+const config = {
+  formatters: {
+    prettierOptions: {
+      printWidth: 180,
+      arrowParens: "always",
+      proseWrap: "always",
+      trailingComma: "all",
+    },
+  },
+}
+```
+
+With this snippet, `format/prettier` keeps formatting CSS/HTML/Markdown/etc. while respecting the custom wrapping rules.
+
 - Pass global options in the first argument (no `files` allowed there).
 - Provide extra flat-config objects afterward to target specific globs or add plugins.
 
@@ -105,7 +126,8 @@ Key flags:
 - `--template <vue|react|svelte|astro>` – preset framework integrations.
 - `--extra <formatter|perfectionist|unocss>` – add optional utilities.
 
-The CLI updates `package.json` scripts, creates or patches `eslint.config.ts`, and can optionally tweak `.vscode/settings.json` for best-in-class editor support. It aborts when `eslint.config.js` already exists to avoid conflicts.
+The CLI updates `package.json` scripts, creates or patches `eslint.config.ts`, and can optionally tweak `.vscode/settings.json` for best-in-class editor support. It aborts when
+`eslint.config.js` already exists to avoid conflicts.
 
 ## Scripts & Development
 
@@ -119,7 +141,8 @@ The `package.json` scripts power local development:
 
 ## Acknowledgements
 
-This project builds upon the excellent work in [@antfu/eslint-config](https://github.com/antfu/eslint-config) and extends it with Fonds Tech–specific conventions. Huge thanks to the upstream maintainers.
+This project builds upon the excellent work in [@antfu/eslint-config](https://github.com/antfu/eslint-config) and extends it with Fonds Tech–specific conventions. Huge thanks to
+the upstream maintainers.
 
 ## License & Maintainers
 
