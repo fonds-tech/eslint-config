@@ -12,6 +12,8 @@ integrations with a composable factory.
 
 `@fonds/eslint-config` exposes a factory function named `fonds()` plus a full set of typed helpers. The goal is to offer a batteries-included ESLint flat config that:
 
+> 📚 Looking for more details? Check [`docs/`](./docs/index.md) for structured guides.
+
 - Detects framework needs (Vue, React, Svelte, Astro) and TypeScript automatically when possible.
 - Uses `FlatConfigComposer` to merge internal defaults with user overrides and extra configs.
 - Ships a CLI that scaffolds `eslint.config.ts`, `package.json` scripts, and VS Code settings.
@@ -138,6 +140,8 @@ The `package.json` scripts power local development:
 - `pnpm test` – execute Vitest to ensure config utilities work as expected.
 - `pnpm lint` – lint repository sources (self-hosted config).
 - `pnpm gen` – refresh type and version metadata.
+- `pnpm docs:dev` – run the VitePress docs locally.
+- `pnpm docs:build` – build the static documentation site.
 
 ## Acknowledgements
 

@@ -32,6 +32,9 @@
     "stub": "tsdown",
     "dev": "npx @eslint/config-inspector --config eslint.config.ts",
     "build:inspector": "pnpm build && npx @eslint/config-inspector build",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
     "watch": "tsdown --watch",
     "lint": "eslint",
     "gen": "tsx scripts/typegen.ts && tsx scripts/versiongen.ts",
@@ -184,6 +187,7 @@
     "tsdown": "catalog:dev",
     "tsx": "catalog:dev",
     "typescript": "catalog:dev",
+    "vitepress": "catalog:dev",
     "vitest": "catalog:dev",
     "vue": "catalog:peer"
   },
