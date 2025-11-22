@@ -81,6 +81,7 @@ dist
 _fixtures
 
 .temp
+.serena
 .history
 
 src/typegen.d.ts
