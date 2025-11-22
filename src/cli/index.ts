@@ -20,7 +20,7 @@ cli
   .action(async (args) => {
     header()
     try {
-      await run(args)
+      await run({ ...args, frameworks: args.template })
     }
     catch (error) {
       p.log.error(c.inverse.red(" Failed to migrate "))
