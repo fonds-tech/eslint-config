@@ -159,8 +159,8 @@ catalogs:
       specifier: ^3.3.1
       version: 3.3.1
     eslint-plugin-fonds:
-      specifier: ^1.0.11
-      version: 1.0.11
+      specifier: ^1.0.12
+      version: 1.0.12
     eslint-plugin-import-lite:
       specifier: ^0.3.0
       version: 0.3.0
@@ -276,7 +276,7 @@ importers:
         version: 3.3.1(eslint@9.39.1(jiti@2.6.1))
       eslint-plugin-fonds:
         specifier: catalog:prod
-        version: 1.0.11(eslint@9.39.1(jiti@2.6.1))
+        version: 1.0.12(eslint@9.39.1(jiti@2.6.1))
       eslint-plugin-import-lite:
         specifier: catalog:prod
         version: 0.3.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
@@ -2356,8 +2356,8 @@ packages:
     peerDependencies:
       eslint: ^9.38.0
 
-  eslint-plugin-fonds@1.0.11:
-    resolution: {integrity: sha512-FFFwvEmkMuLp2vp7LONZkU5qKQPWasvgl9onGw7qBnSx16XtrBfB+5wgWAUyCUQEKLf8WaxfyF11F9XNjG8DiA==}
+  eslint-plugin-fonds@1.0.12:
+    resolution: {integrity: sha512-hQDCukxr48w49dALrEXhzeMmw4b+o6WtsIei9pIV9vdpdYIyXFXX2gyUNNxNhQ6aaxsrWSoVTEJp1b0H3uZDnQ==}
     peerDependencies:
       eslint: ^9.38.0
 
@@ -6200,7 +6200,7 @@ snapshots:
       eslint: 9.39.1(jiti@2.6.1)
       eslint-compat-utils: 0.5.1(eslint@9.39.1(jiti@2.6.1))
 
-  eslint-plugin-fonds@1.0.11(eslint@9.39.1(jiti@2.6.1)):
+  eslint-plugin-fonds@1.0.12(eslint@9.39.1(jiti@2.6.1)):
     dependencies:
       eslint: 9.39.1(jiti@2.6.1)
       postcss: 8.5.6
