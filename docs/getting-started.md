@@ -87,7 +87,7 @@ pnpm docs:dev             # 本地预览 VitePress 文档
 
 ## 4. 将格式化器与编辑器对齐
 
-1. 若需要 Prettier 行宽/缩进等行为，请参考 [格式化器指南](/formatters)，在 `formatters.prettierOptions` 中覆写。
+1. 若需要 Prettier 行宽/缩进等行为，请参考 [格式化器指南](/formatters)，在 `formatters.prettier` 中覆写。
 2. VS Code 中安装官方 ESLint 扩展并指向 `eslint.config.ts` 即可获得实时诊断；如需启用“只在保存时自动修复”，可在 `.vscode/settings.json` 中加入：
 
 ```json

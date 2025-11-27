@@ -18,7 +18,7 @@
 - **可组合工厂**：通过 `fonds(options, ...userConfigs)` 将官方预设与自定义 flat config 串联起来。
 - **插件自动重命名**：把 `@typescript-eslint` 等插件重命名为 `ts` 等短名，便于阅读和禁用规则。
 - **编辑器友好模式**：在 IDE 中运行时自动关闭耗时 fixer（例如 `unused-imports/no-unused-imports`）。
-- **多格式支持**：`formatters` 配置块可启用 Prettier/dprint 处理 CSS、Markdown、Astro 等文本。
+- **多格式支持**：`formatters` 配置块可启用 Prettier/dprint 处理 CSS、Vue SFC、Markdown、Astro 等文本。
 - **生态覆盖广**：内置 pnpm catalog、UnoCSS、Astro、Markdown 代码块、TOML/YAML/JSONC 等支持。
 - **交互式 CLI**：运行 `npx @fonds/eslint-config`，通过问答选择框架和额外工具，并安全迁移。
 
@@ -71,12 +71,14 @@ export default fonds(
 
 ### 自定义格式化参数
 
-将 `formatters` 设为 `true` 会自动启用各类 formatter；若想在保持该行为的同时覆写 Prettier 行为，只需传对象并提供 `prettierOptions`（未显式声明的语言仍旧沿用默认启用状态）：
+将 `formatters` 设为 `true` 会自动启用各类 formatter；若想在保持该行为的同时覆写 Prettier 行为，只需传对象并提供
+`prettier`（未显式声明的语言仍旧沿用默认启用状态）。如需读取项目已有的 Prettier 配置文件，可在 `prettier` 对象内开启 `useLocalPrettierConfig`（默认 `false`）：
 
 ```ts
 const config = {
   formatters: {
-    prettierOptions: {
+    prettier: {
+      useLocalPrettierConfig: true,
       printWidth: 180,
       arrowParens: "always",
       proseWrap: "always",

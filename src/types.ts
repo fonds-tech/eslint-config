@@ -108,6 +108,12 @@ export interface OptionsFormatters {
   html?: "prettier" | boolean
 
   /**
+   * 启用 Vue 单文件组件的格式化。
+   * 目前仅支持 Prettier。
+   */
+  vue?: "prettier" | boolean
+
+  /**
    * Enable formatting support for XML.
    *
    * Currently only support Prettier.
@@ -136,11 +142,21 @@ export interface OptionsFormatters {
   graphql?: "prettier" | boolean
 
   /**
-   * Custom options for Prettier.
+   * Prettier 配置。
    *
-   * By default it's controlled by our own config.
+   * - `true`：使用默认 Prettier 选项（配合 stylistic 生成行宽/缩进等）。
+   * - `false`：禁用所有 Prettier formatter。
+   * - 对象：在默认值基础上覆盖；可通过 `useLocalPrettierConfig` 决定是否读取本地配置文件。
+   *
+   * 未显式配置时默认等同于 `true`。
    */
-  prettierOptions?: VendoredPrettierOptions
+  prettier?: boolean | (VendoredPrettierOptions & {
+    /**
+     * 是否读取本地 Prettier 配置文件（.prettierrc、prettier.config.*）。
+     * @default false
+     */
+    useLocalPrettierConfig?: boolean
+  })
 
   /**
    * Custom options for dprint.
