@@ -87,7 +87,7 @@ describe("prettier 集成格式化（多语言）", () => {
 
       const files = await glob("**/*", {
         cwd: testCase.outputDir,
-        filesOnly: true,
+        onlyFiles: true,
       })
 
       for (const file of files) {
