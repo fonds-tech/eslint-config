@@ -93,7 +93,7 @@ export async function formatters(
       trailingComma: "all",
       useTabs: indent === "tab",
     } satisfies VendoredPrettierOptions,
-    resolvedOptions.prettierOptions || {},
+    resolvedOptions.prettier || {},
   )
 
   const prettierXmlOptions: VendoredPrettierOptions = {

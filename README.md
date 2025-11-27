@@ -71,12 +71,12 @@ export default fonds(
 
 ### 自定义格式化参数
 
-将 `formatters` 设为 `true` 会自动启用各类 formatter；若想在保持该行为的同时覆写 Prettier 行为，只需传对象并提供 `prettierOptions`（未显式声明的语言仍旧沿用默认启用状态）：
+将 `formatters` 设为 `true` 会自动启用各类 formatter；若想在保持该行为的同时覆写 Prettier 行为，只需传对象并提供 `prettier`（未显式声明的语言仍旧沿用默认启用状态）：
 
 ```ts
 const config = {
   formatters: {
-    prettierOptions: {
+    prettier: {
       printWidth: 180,
       arrowParens: "always",
       proseWrap: "always",

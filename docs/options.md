@@ -44,7 +44,7 @@ outline: deep
 - `jsx`: `true`，可关闭 JSX 特定规则。
 - `semi`: `false`。
 
-这些值也会传入 formatter 默认配置（未显式填写 `formatters.prettierOptions` 时会沿用）。
+这些值也会传入 formatter 默认配置（未显式填写 `formatters.prettier` 时会沿用）。
 
 ## Overrides 钩子
 

@@ -76,13 +76,13 @@ export default fonds(
 
 ### Custom formatter options
 
-Setting `formatters: true` auto-enables every supported formatter. To override Prettier settings without losing that convenience, pass an object and provide `prettierOptions`—any
-language toggle you omit keeps its default autodetected value:
+Setting `formatters: true` auto-enables every supported formatter. To override Prettier settings without losing that convenience, pass an object and provide `prettier`—any language
+toggle you omit keeps its default autodetected value:
 
 ```ts
 const config = {
   formatters: {
-    prettierOptions: {
+    prettier: {
       printWidth: 180,
       arrowParens: "always",
       proseWrap: "always",

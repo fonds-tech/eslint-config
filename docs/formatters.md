@@ -31,12 +31,12 @@ outline: deep
 
 ## 自定义 Prettier 选项
 
-`formatters.prettierOptions` 会被合并进所有启用的 Prettier formatter，可直观控制行宽、缩进等：
+`formatters.prettier` 会被合并进所有启用的 Prettier formatter，可直观控制行宽、缩进等：
 
 ```ts
 const config = {
   formatters: {
-    prettierOptions: {
+    prettier: {
       printWidth: 180,
       arrowParens: "always",
       proseWrap: "always",
@@ -93,7 +93,7 @@ const config = {
 ## 与 JS/TS 规则协作
 
 - Stylistic 配置（`indent`、`quotes`、`semi`）会被同步为 formatter 默认值，确保 ESLint 与 Prettier 行为一致。
-- 对于 Markdown 中的代码块，`format/prettier` 会默认关闭嵌入语言的再次格式化，避免和 ESLint 冲突；若需要，可在 `prettierOptions` 中设置 `embeddedLanguageFormatting: "auto"`。
+- 对于 Markdown 中的代码块，`format/prettier` 会默认关闭嵌入语言的再次格式化，避免和 ESLint 冲突；若需要，可在 `prettier` 中设置 `embeddedLanguageFormatting: "auto"`。
 - 想对 JS/TS 使用 Prettier，可在自定义 flat config 内手动添加：
 
 ```ts

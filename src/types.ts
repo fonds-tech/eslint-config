@@ -140,7 +140,7 @@ export interface OptionsFormatters {
    *
    * By default it's controlled by our own config.
    */
-  prettierOptions?: VendoredPrettierOptions
+  prettier?: VendoredPrettierOptions
 
   /**
    * Custom options for dprint.
