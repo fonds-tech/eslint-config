@@ -5,6 +5,7 @@ import { StylisticConfigDefaults } from "./stylistic"
 import { parserPlain, ensurePackages, interopDefault, isPackageInScope } from "../utils"
 import { GLOB_CSS, GLOB_SVG, GLOB_XML, GLOB_HTML, GLOB_LESS, GLOB_SCSS, GLOB_ASTRO, GLOB_GRAPHQL, GLOB_POSTCSS, GLOB_ASTRO_TS, GLOB_MARKDOWN } from "../globs"
 
+// 合并 Prettier 选项的辅助函数
 function mergePrettierOptions(
   options: VendoredPrettierOptions,
   overrides: VendoredPrettierRuleOptions = {},
@@ -30,6 +31,8 @@ const formatterToggleKeys: (keyof OptionsFormatters)[] = [
   "xml",
 ]
 
+// 解析格式化选项，自动检测依赖并设置默认值
+// 如果用户传入 true，则尝试启用所有已安装依赖支持的格式化器
 function resolveFormatterOptions(options: OptionsFormatters | true): OptionsFormatters {
   const isPrettierPluginXmlInScope = isPackageInScope("@prettier/plugin-xml")
 
@@ -47,23 +50,35 @@ function resolveFormatterOptions(options: OptionsFormatters | true): OptionsForm
   if (options === true)
     return resolvedDefaults
 
+  // 如果用户显式指定了某些 toggle key (例如 { css: false })，直接返回用户配置
   const hasToggleOverride = formatterToggleKeys.some(key => key in options)
 
   if (hasToggleOverride)
     return options
 
+  // 否则将用户配置与默认检测结果合并
   return {
     ...resolvedDefaults,
     ...options,
   }
 }
 
+/**
+ * 格式化工具配置 (Formatters)。
+ * 核心思想：使用 ESLint 运行 Prettier (通过 eslint-plugin-format)。
+ *
+ * 作用：
+ * 1. 统一管理 ESLint 和 Prettier，无需单独的 .prettierrc
+ * 2. 复用 ESLint 的 Ignore 逻辑
+ * 3. 支持 CSS, HTML, Markdown, XML 等多种文件的格式化
+ */
 export async function formatters(
   options: OptionsFormatters | true = {},
   stylistic: StylisticConfig = {},
 ): Promise<TypedFlatConfigItem[]> {
   const resolvedOptions = resolveFormatterOptions(options)
 
+  // 按需安装 Prettier 插件
   await ensurePackages([
     "eslint-plugin-format",
     resolvedOptions.markdown && resolvedOptions.slidev ? "prettier-plugin-slidev" : undefined,
@@ -83,6 +98,8 @@ export async function formatters(
     ...stylistic,
   }
 
+  // 将 ESLint 的 stylistic 选项转换为 Prettier 选项
+  // 确保 ESLint 的代码风格规则与 Prettier 格式化结果一致，避免打架
   const prettierOptions: VendoredPrettierOptions = Object.assign(
     {
       endOfLine: "auto",
@@ -96,6 +113,7 @@ export async function formatters(
     resolvedOptions.prettier || {},
   )
 
+  // XML 特定的 Prettier 配置
   const prettierXmlOptions: VendoredPrettierOptions = {
     xmlQuoteAttributes: "double",
     xmlSelfClosingSpace: true,
@@ -103,6 +121,7 @@ export async function formatters(
     xmlWhitespaceSensitivity: "ignore",
   }
 
+  // 支持 dprint 作为 markdown 的替代格式化工具 (速度更快)
   const dprintOptions = Object.assign(
     {
       indentWidth: typeof indent === "number" ? indent : 2,
@@ -123,12 +142,13 @@ export async function formatters(
     },
   ]
 
+  // === CSS / SCSS / LESS ===
   if (resolvedOptions.css) {
     configs.push(
       {
         files: [GLOB_CSS, GLOB_POSTCSS],
         languageOptions: {
-          parser: parserPlain,
+          parser: parserPlain, // 使用 Plain 解析器，仅读取内容
         },
         name: "fonds/formatter/css",
         rules: {
@@ -173,6 +193,7 @@ export async function formatters(
     )
   }
 
+  // === HTML ===
   if (resolvedOptions.html) {
     configs.push({
       files: [GLOB_HTML],
@@ -191,6 +212,7 @@ export async function formatters(
     })
   }
 
+  // === XML ===
   if (resolvedOptions.xml) {
     configs.push({
       files: [GLOB_XML],
@@ -211,6 +233,8 @@ export async function formatters(
       },
     })
   }
+
+  // === SVG ===
   if (resolvedOptions.svg) {
     configs.push({
       files: [GLOB_SVG],
@@ -232,6 +256,7 @@ export async function formatters(
     })
   }
 
+  // === Markdown ===
   if (resolvedOptions.markdown) {
     const formater = resolvedOptions.markdown === true
       ? "prettier"
@@ -255,7 +280,7 @@ export async function formatters(
           "error",
           formater === "prettier"
             ? mergePrettierOptions(prettierOptions, {
-                embeddedLanguageFormatting: "off",
+                embeddedLanguageFormatting: "off", // 禁用 Prettier 内嵌语言格式化，交由 ESLint 处理代码块
                 parser: "markdown",
               })
             : {
@@ -266,6 +291,7 @@ export async function formatters(
       },
     })
 
+    // === Slidev (Slide Decks) ===
     if (resolvedOptions.slidev) {
       configs.push({
         files: GLOB_SLIDEV,
@@ -289,6 +315,7 @@ export async function formatters(
     }
   }
 
+  // === Astro ===
   if (resolvedOptions.astro) {
     configs.push({
       files: [GLOB_ASTRO],
@@ -309,6 +336,8 @@ export async function formatters(
       },
     })
 
+    // 禁用与 Prettier 冲突的 Stylistic 规则
+    // Astro 文件由 Prettier 接管格式化，ESLint 的格式规则可能会冲突
     configs.push({
       files: [GLOB_ASTRO, GLOB_ASTRO_TS],
       name: "fonds/formatter/astro/disables",
@@ -324,6 +353,7 @@ export async function formatters(
     })
   }
 
+  // === GraphQL ===
   if (resolvedOptions.graphql) {
     configs.push({
       files: [GLOB_GRAPHQL],

@@ -3,6 +3,11 @@ import type { OptionsFiles, OptionsOverrides, OptionsStylistic, TypedFlatConfigI
 import { interopDefault } from "../utils"
 import { GLOB_JSON, GLOB_JSON5, GLOB_JSONC } from "../globs"
 
+/**
+ * JSON/JSONC 配置。
+ * 支持带注释的 JSON (JSONC) 以及 JSON5。
+ * 包含格式化与排序规则。
+ */
 export async function jsonc(
   options: OptionsFiles & OptionsStylistic & OptionsOverrides = {},
 ): Promise<TypedFlatConfigItem[]> {
@@ -38,45 +43,47 @@ export async function jsonc(
       },
       name: "fonds/jsonc/rules",
       rules: {
-        "jsonc/no-bigint-literals": "error",
-        "jsonc/no-binary-expression": "error",
-        "jsonc/no-binary-numeric-literals": "error",
-        "jsonc/no-dupe-keys": "error",
-        "jsonc/no-escape-sequence-in-identifier": "error",
-        "jsonc/no-floating-decimal": "error",
-        "jsonc/no-hexadecimal-numeric-literals": "error",
-        "jsonc/no-infinity": "error",
-        "jsonc/no-multi-str": "error",
-        "jsonc/no-nan": "error",
-        "jsonc/no-number-props": "error",
-        "jsonc/no-numeric-separators": "error",
-        "jsonc/no-octal": "error",
+        // === JSON 语法规则 (防止无效 JSON) ===
+        "jsonc/no-bigint-literals": "error", // 禁止 BigInt 字面量 (JSON 标准不支持)
+        "jsonc/no-binary-expression": "error", // 禁止二进制表达式
+        "jsonc/no-binary-numeric-literals": "error", // 禁止二进制数字
+        "jsonc/no-dupe-keys": "error", // 禁止重复键
+        "jsonc/no-escape-sequence-in-identifier": "error", // 禁止标识符中的转义序列
+        "jsonc/no-floating-decimal": "error", // 禁止浮点小数 (.5 -> 0.5)
+        "jsonc/no-hexadecimal-numeric-literals": "error", // 禁止十六进制数字
+        "jsonc/no-infinity": "error", // 禁止 Infinity
+        "jsonc/no-multi-str": "error", // 禁止多行字符串
+        "jsonc/no-nan": "error", // 禁止 NaN
+        "jsonc/no-number-props": "error", // 禁止数字属性名
+        "jsonc/no-numeric-separators": "error", // 禁止数字分隔符 (1_000)
+        "jsonc/no-octal": "error", // 禁止八进制
         "jsonc/no-octal-escape": "error",
         "jsonc/no-octal-numeric-literals": "error",
-        "jsonc/no-parenthesized": "error",
-        "jsonc/no-plus-sign": "error",
-        "jsonc/no-regexp-literals": "error",
-        "jsonc/no-sparse-arrays": "error",
-        "jsonc/no-template-literals": "error",
-        "jsonc/no-undefined-value": "error",
-        "jsonc/no-unicode-codepoint-escapes": "error",
-        "jsonc/no-useless-escape": "error",
-        "jsonc/space-unary-ops": "error",
-        "jsonc/valid-json-number": "error",
-        "jsonc/vue-custom-block/no-parsing-error": "error",
+        "jsonc/no-parenthesized": "error", // 禁止括号表达式
+        "jsonc/no-plus-sign": "error", // 禁止正号 (+1)
+        "jsonc/no-regexp-literals": "error", // 禁止正则字面量
+        "jsonc/no-sparse-arrays": "error", // 禁止稀疏数组 ([1,,2])
+        "jsonc/no-template-literals": "error", // 禁止模板字符串 (反引号)
+        "jsonc/no-undefined-value": "error", // 禁止 undefined
+        "jsonc/no-unicode-codepoint-escapes": "error", // 禁止 Unicode 代码点转义
+        "jsonc/no-useless-escape": "error", // 禁止无用的转义
+        "jsonc/space-unary-ops": "error", // 禁用一元操作符空格
+        "jsonc/valid-json-number": "error", // 验证数字格式
+        "jsonc/vue-custom-block/no-parsing-error": "error", // 检查 Vue SFC 中的 <i18n> 块等
 
+        // === 风格规则 (如果启用) ===
         ...stylistic
           ? {
-              "jsonc/array-bracket-spacing": ["error", "never"],
-              "jsonc/comma-dangle": ["error", "never"],
-              "jsonc/comma-style": ["error", "last"],
-              "jsonc/indent": ["error", indent],
-              "jsonc/key-spacing": ["error", { afterColon: true, beforeColon: false }],
-              "jsonc/object-curly-newline": ["error", { consistent: true, multiline: true }],
-              "jsonc/object-curly-spacing": ["error", "always"],
-              "jsonc/object-property-newline": ["error", { allowAllPropertiesOnSameLine: true }],
-              "jsonc/quote-props": "error",
-              "jsonc/quotes": "error",
+              "jsonc/array-bracket-spacing": ["error", "never"], // 数组括号内不留空格
+              "jsonc/comma-dangle": ["error", "never"], // JSON 通常不允许尾随逗号 (即使 JSONC 允许，为了通用性通常禁用)
+              "jsonc/comma-style": ["error", "last"], // 逗号在行尾
+              "jsonc/indent": ["error", indent], // 缩进
+              "jsonc/key-spacing": ["error", { afterColon: true, beforeColon: false }], // 冒号后有空格
+              "jsonc/object-curly-newline": ["error", { consistent: true, multiline: true }], // 对象大括号换行规则
+              "jsonc/object-curly-spacing": ["error", "always"], // 对象大括号内有空格
+              "jsonc/object-property-newline": ["error", { allowAllPropertiesOnSameLine: true }], // 对象属性换行
+              "jsonc/quote-props": "error", // 强制属性名加引号
+              "jsonc/quotes": "error", // 强制双引号
             }
           : {},
 

@@ -2,6 +2,14 @@ import type { PromItem, FrameworkOption, ExtraLibrariesOption } from "./types"
 
 import c from "ansis"
 
+/**
+ * 推荐的 VS Code 设置。
+ * 核心策略：
+ * 1. 禁用 Prettier 扩展的格式化功能，防止冲突。
+ * 2. 启用 ESLint 插件的自动修复 (Auto Fix)。
+ * 3. 将所有格式化规则 (style/*, format/*) 的严重等级在 IDE 中设为 off，但在保存时自动修复。
+ *    这样做的好处是：代码写得乱一点不会满屏红线干扰视线，但保存时会自动变整齐。
+ */
 export const vscodeSettingsString = `
   // Disable the default formatter, use eslint instead
   "prettier.enable": false,
@@ -97,6 +105,7 @@ export const extraOptions: PromItem<ExtraLibrariesOption>[] = [
 
 export const extra: ExtraLibrariesOption[] = extraOptions.map(({ value }) => (value))
 
+// 依赖映射：根据用户选择的选项，自动安装所需的 ESLint 插件
 export const dependenciesMap = {
   astro: [
     "eslint-plugin-astro",

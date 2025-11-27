@@ -3,6 +3,10 @@ import { GLOB_JSX, GLOB_TSX } from "../globs"
 
 import { toArray, ensurePackages, interopDefault } from "../utils"
 
+/**
+ * SolidJS 配置。
+ * 针对 SolidJS 特有的响应式系统 (Signals) 进行 Lint 检查。
+ */
 export async function solid(
   options: OptionsHasTypeScript & OptionsOverrides & OptionsFiles & OptionsTypeScriptWithTypes = {},
 ): Promise<TypedFlatConfigItem[]> {
@@ -50,38 +54,35 @@ export async function solid(
       },
       name: "fonds/solid/rules",
       rules: {
-        // reactivity
-        "solid/components-return-once": "warn",
+        // === 响应式规则 (Reactivity) ===
+        "solid/components-return-once": "warn", // 组件应该只返回一次 (Solid 组件运行一次，不重新渲染)
         "solid/event-handlers": ["error", {
-          // if true, don't warn on ambiguously named event handlers like `onclick` or `onchange`
           ignoreCase: false,
-          // if true, warn when spreading event handlers onto JSX. Enable for Solid < v1.6.
           warnOnSpread: false,
         }],
-        // these rules are mostly style suggestions
-        "solid/imports": "error",
-        // identifier usage is important
-        "solid/jsx-no-duplicate-props": "error",
-        "solid/jsx-no-script-url": "error",
-        "solid/jsx-no-undef": "error",
-        "solid/jsx-uses-vars": "error",
-        "solid/no-destructure": "error",
-        // security problems
-        "solid/no-innerhtml": ["error", { allowStatic: true }],
-        "solid/no-react-deps": "error",
-        "solid/no-react-specific-props": "error",
-        "solid/no-unknown-namespaces": "error",
-        "solid/prefer-for": "error",
-        "solid/reactivity": "warn",
-        "solid/self-closing-comp": "error",
-        "solid/style-prop": ["error", { styleProps: ["style", "css"] }],
+        "solid/imports": "error", // 检查 Solid 导入
+        // 标识符使用
+        "solid/jsx-no-duplicate-props": "error", // 禁止重复 Props
+        "solid/jsx-no-script-url": "error", // 禁止脚本 URL
+        "solid/jsx-no-undef": "error", // 禁止未定义的 JSX 元素
+        "solid/jsx-uses-vars": "error", // 标记 JSX 中使用的变量
+        "solid/no-destructure": "error", // 禁止解构 props (会丢失响应性)
+        // 安全问题
+        "solid/no-innerhtml": ["error", { allowStatic: true }], // 限制 innerHTML
+        "solid/no-react-deps": "error", // 避免使用 React 的依赖数组风格 (Solid 自动追踪依赖)
+        "solid/no-react-specific-props": "error", // 避免使用 className 等 React 特有属性 (应使用 class)
+        "solid/no-unknown-namespaces": "error", // 禁止未知命名空间
+        "solid/prefer-for": "error", // 推荐使用 <For> 组件而非 map (性能更好)
+        "solid/reactivity": "warn", // 强制响应式规范 (检测副作用中的信号访问)
+        "solid/self-closing-comp": "error", // 自闭合组件
+        "solid/style-prop": ["error", { styleProps: ["style", "css"] }], // 样式属性规范
+
         ...typescript
           ? {
               "solid/jsx-no-undef": ["error", { typescriptEnabled: true }],
               "solid/no-unknown-namespaces": "off",
             }
           : {},
-        // overrides
         ...overrides,
       },
     },

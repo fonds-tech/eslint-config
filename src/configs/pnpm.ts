@@ -2,6 +2,10 @@ import type { TypedFlatConfigItem } from "../types"
 
 import { interopDefault } from "../utils"
 
+/**
+ * Pnpm 相关配置。
+ * 验证 package.json 中的 catalog 字段以及 pnpm-workspace.yaml 的正确性。
+ */
 export async function pnpm(): Promise<TypedFlatConfigItem[]> {
   const [
     pluginPnpm,
@@ -27,7 +31,9 @@ export async function pnpm(): Promise<TypedFlatConfigItem[]> {
         pnpm: pluginPnpm,
       },
       rules: {
+        // 强制使用 catalog 协议
         "pnpm/json-enforce-catalog": "error",
+        // 推荐使用 workspace: 协议
         "pnpm/json-prefer-workspace-settings": "error",
         "pnpm/json-valid-catalog": "error",
       },

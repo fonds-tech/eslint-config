@@ -2,10 +2,14 @@ import type { OptionsJSX, TypedFlatConfigItem } from "../types"
 import { GLOB_JSX, GLOB_TSX } from "../globs"
 import { ensurePackages, interopDefault } from "../utils"
 
+/**
+ * JSX 基础配置。
+ * 可选开启 JSX 可访问性 (a11y) 检查。
+ */
 export async function jsx(options: OptionsJSX = {}): Promise<TypedFlatConfigItem[]> {
   const { a11y } = options
 
-  // Base JSX configuration without a11y
+  // 基础配置：仅启用 JSX 解析特性
   const baseConfig: TypedFlatConfigItem = {
     files: [GLOB_JSX, GLOB_TSX],
     languageOptions: {
@@ -20,7 +24,7 @@ export async function jsx(options: OptionsJSX = {}): Promise<TypedFlatConfigItem
     rules: {},
   }
 
-  // Return early if no a11y configuration is needed
+  // 如果不需要 a11y，直接返回基础配置
   if (!a11y) {
     return [baseConfig]
   }
@@ -34,7 +38,7 @@ export async function jsx(options: OptionsJSX = {}): Promise<TypedFlatConfigItem
     ...(typeof a11y === "object" && a11y.overrides ? a11y.overrides : {}),
   }
 
-  // Merge base config with a11y configuration
+  // 合并基础配置与 a11y 配置
   return [
     {
       ...baseConfig,

@@ -1,9 +1,10 @@
 import type { TypedFlatConfigItem } from "../types"
 
 /**
- * Sort package.json
+ * Package.json 排序规则。
+ * 定义了 package.json 中各个字段的标准顺序，保持项目配置的一致性。
  *
- * Requires `jsonc` config
+ * 需要依赖 `jsonc` 配置。
  */
 export async function sortPackageJson(): Promise<TypedFlatConfigItem[]> {
   return [
@@ -11,6 +12,7 @@ export async function sortPackageJson(): Promise<TypedFlatConfigItem[]> {
       files: ["**/package.json"],
       name: "fonds/sort/package-json",
       rules: {
+        // 数组值排序 (例如 files 字段)
         "jsonc/sort-array-values": [
           "error",
           {
@@ -18,8 +20,10 @@ export async function sortPackageJson(): Promise<TypedFlatConfigItem[]> {
             pathPattern: "^files$",
           },
         ],
+        // 键名排序
         "jsonc/sort-keys": [
           "error",
+          // 顶层字段顺序 (按标准 npm 包结构排序)
           {
             order: [
               "publisher",
@@ -70,22 +74,26 @@ export async function sortPackageJson(): Promise<TypedFlatConfigItem[]> {
             ],
             pathPattern: "^$",
           },
+          // 依赖项排序 (dependencies, devDependencies 等内部按字母排序)
           {
             order: { type: "asc" },
             pathPattern: "^(?:dev|peer|optional|bundled)?[Dd]ependencies(Meta)?$",
           },
+          // 覆盖配置排序
           {
             order: { type: "asc" },
             pathPattern: "^(?:resolutions|overrides|pnpm.overrides)$",
           },
+          // Workspace catalogs
           {
             order: { type: "asc" },
-            pathPattern: "^workspaces\\.catalog$",
+            pathPattern: "^workspaces\.catalog$",
           },
           {
             order: { type: "asc" },
-            pathPattern: "^workspaces\\.catalogs\\.[^.]+$",
+            pathPattern: "^workspaces\.catalogs\.[^.]+$",
           },
+          // Exports 字段排序 (types 优先，然后是 import/require/default)
           {
             order: [
               "types",
@@ -95,9 +103,9 @@ export async function sortPackageJson(): Promise<TypedFlatConfigItem[]> {
             ],
             pathPattern: "^exports.*$",
           },
+          // Git Hooks 排序 (按生命周期顺序)
           {
             order: [
-              // client hooks only
               "pre-commit",
               "prepare-commit-msg",
               "commit-msg",
@@ -116,12 +124,11 @@ export async function sortPackageJson(): Promise<TypedFlatConfigItem[]> {
     },
   ]
 }
-/**
- * Sort tsconfig.json
- *
- * Requires `jsonc` config
- */
 
+/**
+ * tsconfig.json 排序规则。
+ * 保持 TS 配置文件整洁有序。
+ */
 export function sortTsconfig(): TypedFlatConfigItem[] {
   return [
     {
@@ -130,6 +137,7 @@ export function sortTsconfig(): TypedFlatConfigItem[] {
       rules: {
         "jsonc/sort-keys": [
           "error",
+          // 顶层字段
           {
             order: [
               "extends",
@@ -141,16 +149,17 @@ export function sortTsconfig(): TypedFlatConfigItem[] {
             ],
             pathPattern: "^$",
           },
+          // compilerOptions 内部排序 (逻辑分组)
           {
             order: [
-              /* Projects */
+              /* Projects (项目配置) */
               "incremental",
               "composite",
               "tsBuildInfoFile",
               "disableSourceOfProjectReferenceRedirect",
               "disableSolutionSearching",
               "disableReferencedProjectLoad",
-              /* Language and Environment */
+              /* Language and Environment (语言与环境) */
               "target",
               "jsx",
               "jsxFactory",
@@ -164,7 +173,7 @@ export function sortTsconfig(): TypedFlatConfigItem[] {
               "emitDecoratorMetadata",
               "experimentalDecorators",
               "libReplacement",
-              /* Modules */
+              /* Modules (模块解析) */
               "baseUrl",
               "rootDir",
               "rootDirs",
@@ -182,11 +191,11 @@ export function sortTsconfig(): TypedFlatConfigItem[] {
               "allowArbitraryExtensions",
               "allowImportingTsExtensions",
               "allowUmdGlobalAccess",
-              /* JavaScript Support */
+              /* JavaScript Support (JS 支持) */
               "allowJs",
               "checkJs",
               "maxNodeModuleJsDepth",
-              /* Type Checking */
+              /* Type Checking (类型检查严格度) */
               "strict",
               "strictBindCallApply",
               "strictFunctionTypes",
@@ -206,7 +215,7 @@ export function sortTsconfig(): TypedFlatConfigItem[] {
               "noUnusedLocals",
               "noUnusedParameters",
               "useUnknownInCatchVariables",
-              /* Emit */
+              /* Emit (输出) */
               "declaration",
               "declarationDir",
               "declarationMap",
@@ -230,7 +239,7 @@ export function sortTsconfig(): TypedFlatConfigItem[] {
               "sourceMap",
               "sourceRoot",
               "stripInternal",
-              /* Interop Constraints */
+              /* Interop Constraints (互操作性) */
               "allowSyntheticDefaultImports",
               "esModuleInterop",
               "forceConsistentCasingInFileNames",
@@ -239,7 +248,7 @@ export function sortTsconfig(): TypedFlatConfigItem[] {
               "preserveSymlinks",
               "verbatimModuleSyntax",
               "erasableSyntaxOnly",
-              /* Completeness */
+              /* Completeness (完整性) */
               "skipDefaultLibCheck",
               "skipLibCheck",
             ],
