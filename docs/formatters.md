@@ -13,7 +13,6 @@ outline: deep
 | --------------------------- | ------------------------- | ---------------------------------------------- |
 | CSS / PostCSS / Less / SCSS | Prettier                  | 无                                             |
 | HTML                        | Prettier                  | 无                                             |
-| Vue SFC                     | Prettier                  | 无                                             |
 | Markdown                    | Prettier（可切换 dprint） | `eslint-plugin-format`（已在 peer 中）         |
 | Slidev Markdown             | Prettier                  | `prettier-plugin-slidev`（仅当 `slidev` 为真） |
 | Astro                       | Prettier                  | `prettier-plugin-astro`                        |
@@ -28,21 +27,16 @@ outline: deep
 - `formatters: { markdown: true }`：仅启用显式列出的语言，其余保持关闭。
 - `formatters: { astro: true, markdown: "dprint" }`：可为不同语言选择不同实现。
 
-当对象中没有任何“语言开关”时，会继承 `formatters: true` 的默认启用列表（包含 Vue SFC）；一旦写出 `css: true/false`、`astro: true` 等字段，就只会启用显式声明的部分。
+当对象中没有任何“语言开关”时，会继承 `formatters: true` 的默认启用列表；一旦写出 `css: true/false`、`astro: true` 等字段，就只会启用显式声明的部分。
 
 ## 自定义 Prettier 选项
 
-`formatters.prettier` 会被合并进所有启用的 Prettier formatter，可直观控制行宽、缩进等：
-
-- `formatters.prettier.useLocalPrettierConfig`（默认 `false`）：尝试读取项目中的 `.prettierrc*` / `prettier.config.*` 作为基线；设为 `false` 时仅使用内置默认值和显式的 `prettier`
-  对象。
+`formatters.prettierOptions` 会被合并进所有启用的 Prettier formatter，可直观控制行宽、缩进等：
 
 ```ts
 const config = {
   formatters: {
-    prettier: {
-      // 控制是否读取本地 Prettier 配置
-      useLocalPrettierConfig: true,
+    prettierOptions: {
       printWidth: 180,
       arrowParens: "always",
       proseWrap: "always",
@@ -99,7 +93,7 @@ const config = {
 ## 与 JS/TS 规则协作
 
 - Stylistic 配置（`indent`、`quotes`、`semi`）会被同步为 formatter 默认值，确保 ESLint 与 Prettier 行为一致。
-- 对于 Markdown 中的代码块，`format/prettier` 会默认关闭嵌入语言的再次格式化，避免和 ESLint 冲突；若需要，可在 `prettier` 中设置 `embeddedLanguageFormatting: "auto"`。
+- 对于 Markdown 中的代码块，`format/prettier` 会默认关闭嵌入语言的再次格式化，避免和 ESLint 冲突；若需要，可在 `prettierOptions` 中设置 `embeddedLanguageFormatting: "auto"`。
 - 想对 JS/TS 使用 Prettier，可在自定义 flat config 内手动添加：
 
 ```ts

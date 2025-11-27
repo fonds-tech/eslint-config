@@ -19,7 +19,7 @@ export default fonds(
       },
     },
     formatters: {
-      prettier: {
+      prettierOptions: {
         arrowParens: "always",
         bracketSameLine: false,
         bracketSpacing: true,

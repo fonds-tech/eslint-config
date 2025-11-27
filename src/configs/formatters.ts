@@ -1,11 +1,9 @@
 import type { VendoredPrettierOptions, VendoredPrettierRuleOptions } from "../vender/prettier-types"
 import type { StylisticConfig, OptionsFormatters, TypedFlatConfigItem } from "../types"
-import process from "node:process"
-import vueParser from "vue-eslint-parser"
 import { isPackageExists } from "local-pkg"
 import { StylisticConfigDefaults } from "./stylistic"
 import { parserPlain, ensurePackages, interopDefault, isPackageInScope } from "../utils"
-import { GLOB_CSS, GLOB_SVG, GLOB_VUE, GLOB_XML, GLOB_HTML, GLOB_LESS, GLOB_SCSS, GLOB_ASTRO, GLOB_GRAPHQL, GLOB_POSTCSS, GLOB_ASTRO_TS, GLOB_MARKDOWN } from "../globs"
+import { GLOB_CSS, GLOB_SVG, GLOB_XML, GLOB_HTML, GLOB_LESS, GLOB_SCSS, GLOB_ASTRO, GLOB_GRAPHQL, GLOB_POSTCSS, GLOB_ASTRO_TS, GLOB_MARKDOWN } from "../globs"
 
 function mergePrettierOptions(
   options: VendoredPrettierOptions,
@@ -30,49 +28,7 @@ const formatterToggleKeys: (keyof OptionsFormatters)[] = [
   "slidev",
   "svg",
   "xml",
-  "vue",
 ]
-
-const VUE_PRETTIER_CONFLICT_RULES = [
-  "style/quotes",
-  "vue/html-indent",
-  "vue/html-closing-bracket-newline",
-  "vue/html-closing-bracket-spacing",
-  "vue/html-quotes",
-  "vue/multiline-html-element-content-newline",
-  "vue/singleline-html-element-content-newline",
-  "vue/no-multi-spaces",
-  "vue/mustache-interpolation-spacing",
-  "vue/attribute-hyphenation",
-  "vue/v-bind-style",
-  "vue/v-on-style",
-  "vue/this-in-template",
-  "vue/component-name-in-template-casing",
-  "vue/custom-event-name-casing",
-]
-
-const vuePrettierRuleOffs = Object.fromEntries(
-  VUE_PRETTIER_CONFLICT_RULES.map(rule => [rule, "off"] as const),
-) as Record<string, "off">
-
-async function loadPrettierConfig(): Promise<VendoredPrettierOptions | undefined> {
-  try {
-    // 动态加载，避免在未安装 Prettier 时直接报错
-    const prettier = await import("prettier")
-    if (typeof prettier.resolveConfig !== "function")
-      return undefined
-
-    const resolved = await prettier.resolveConfig(process.cwd())
-    if (!resolved)
-      return undefined
-
-    return resolved as VendoredPrettierOptions
-  }
-  catch {
-    // 缺少依赖或解析失败时静默降级
-    return undefined
-  }
-}
 
 function resolveFormatterOptions(options: OptionsFormatters | true): OptionsFormatters {
   const isPrettierPluginXmlInScope = isPackageInScope("@prettier/plugin-xml")
@@ -85,7 +41,6 @@ function resolveFormatterOptions(options: OptionsFormatters | true): OptionsForm
     markdown: true,
     slidev: isPackageExists("@slidev/cli"),
     svg: isPrettierPluginXmlInScope,
-    vue: true,
     xml: isPrettierPluginXmlInScope,
   }
 
@@ -109,6 +64,16 @@ export async function formatters(
 ): Promise<TypedFlatConfigItem[]> {
   const resolvedOptions = resolveFormatterOptions(options)
 
+  await ensurePackages([
+    "eslint-plugin-format",
+    resolvedOptions.markdown && resolvedOptions.slidev ? "prettier-plugin-slidev" : undefined,
+    resolvedOptions.astro ? "prettier-plugin-astro" : undefined,
+    (resolvedOptions.xml || resolvedOptions.svg) ? "@prettier/plugin-xml" : undefined,
+  ])
+
+  if (resolvedOptions.slidev && resolvedOptions.markdown !== true && resolvedOptions.markdown !== "prettier")
+    throw new Error("`slidev` option only works when `markdown` is enabled with `prettier`")
+
   const {
     indent,
     quotes,
@@ -118,44 +83,18 @@ export async function formatters(
     ...stylistic,
   }
 
-  const prettierInput = "prettier" in resolvedOptions
-    ? resolvedOptions.prettier
-    : true
-
-  const prettierEnabled = prettierInput !== false
-  const prettierOverrides = prettierEnabled && typeof prettierInput === "object"
-    ? (() => {
-        const { useLocalPrettierConfig, ...rest } = prettierInput
-        return rest
-      })()
-    : {}
-  const usePrettierConfig = prettierEnabled && typeof prettierInput === "object"
-    ? prettierInput.useLocalPrettierConfig ?? false
-    : false
-
-  const prettierOptions: VendoredPrettierOptions = prettierEnabled
-    ? Object.assign(
-      {
-        endOfLine: "auto",
-        printWidth: 160,
-        semi,
-        singleQuote: quotes === "single",
-        tabWidth: typeof indent === "number" ? indent : 2,
-        trailingComma: "all",
-        useTabs: indent === "tab",
-      } satisfies VendoredPrettierOptions,
-      usePrettierConfig ? await loadPrettierConfig() : {},
-      prettierOverrides,
-      )
-    : {
-        endOfLine: "auto",
-        printWidth: 160,
-        semi,
-        singleQuote: quotes === "single",
-        tabWidth: typeof indent === "number" ? indent : 2,
-        trailingComma: "all",
-        useTabs: indent === "tab",
-      }
+  const prettierOptions: VendoredPrettierOptions = Object.assign(
+    {
+      endOfLine: "auto",
+      printWidth: 160,
+      semi,
+      singleQuote: quotes === "single",
+      tabWidth: typeof indent === "number" ? indent : 2,
+      trailingComma: "all",
+      useTabs: indent === "tab",
+    } satisfies VendoredPrettierOptions,
+    resolvedOptions.prettierOptions || {},
+  )
 
   const prettierXmlOptions: VendoredPrettierOptions = {
     xmlQuoteAttributes: "double",
@@ -173,34 +112,6 @@ export async function formatters(
     resolvedOptions.dprintOptions || {},
   )
 
-  if (resolvedOptions.slidev && resolvedOptions.markdown !== true && resolvedOptions.markdown !== "prettier")
-    throw new Error("`slidev` option only works when `markdown` is enabled with `prettier`")
-
-  if (!prettierEnabled) {
-    const prettierRequired = [
-      resolvedOptions.css,
-      resolvedOptions.html,
-      resolvedOptions.vue,
-      resolvedOptions.xml,
-      resolvedOptions.svg,
-      resolvedOptions.astro,
-      resolvedOptions.graphql,
-      resolvedOptions.markdown === true || resolvedOptions.markdown === "prettier" || resolvedOptions.markdown === undefined,
-      resolvedOptions.slidev,
-    ].some(Boolean)
-
-    if (prettierRequired)
-      throw new Error("Prettier 已被禁用，但当前 formatters 配置仍依赖 Prettier，请关闭相关语言或开启 `prettier`")
-  }
-
-  await ensurePackages([
-    "eslint-plugin-format",
-    prettierEnabled ? "prettier" : undefined,
-    prettierEnabled && resolvedOptions.markdown && resolvedOptions.slidev ? "prettier-plugin-slidev" : undefined,
-    prettierEnabled && resolvedOptions.astro ? "prettier-plugin-astro" : undefined,
-    prettierEnabled && (resolvedOptions.xml || resolvedOptions.svg) ? "@prettier/plugin-xml" : undefined,
-  ])
-
   const pluginFormat = await interopDefault(import("eslint-plugin-format"))
 
   const configs: TypedFlatConfigItem[] = [
@@ -212,7 +123,7 @@ export async function formatters(
     },
   ]
 
-  if (resolvedOptions.css && prettierEnabled) {
+  if (resolvedOptions.css) {
     configs.push(
       {
         files: [GLOB_CSS, GLOB_POSTCSS],
@@ -262,7 +173,7 @@ export async function formatters(
     )
   }
 
-  if (resolvedOptions.html && prettierEnabled) {
+  if (resolvedOptions.html) {
     configs.push({
       files: [GLOB_HTML],
       languageOptions: {
@@ -280,29 +191,7 @@ export async function formatters(
     })
   }
 
-  if (resolvedOptions.vue && prettierEnabled) {
-    configs.push({
-      files: [GLOB_VUE],
-      languageOptions: {
-        parser: vueParser,
-      },
-      name: "fonds/formatter/vue",
-      rules: {
-        "format/prettier": [
-          "error",
-          mergePrettierOptions(prettierOptions, {
-            parser: "vue",
-          }),
-        ],
-        // 在 formatter 规则下关闭需要类型信息的 TS 规则，避免 parser 切换为 parser-plain 时抛错
-        "ts/consistent-type-imports": "off",
-        // 避免与 Prettier 的换行/缩进/引号冲突
-        ...vuePrettierRuleOffs,
-      },
-    })
-  }
-
-  if (resolvedOptions.xml && prettierEnabled) {
+  if (resolvedOptions.xml) {
     configs.push({
       files: [GLOB_XML],
       languageOptions: {
@@ -322,7 +211,7 @@ export async function formatters(
       },
     })
   }
-  if (resolvedOptions.svg && prettierEnabled) {
+  if (resolvedOptions.svg) {
     configs.push({
       files: [GLOB_SVG],
       languageOptions: {
@@ -347,9 +236,6 @@ export async function formatters(
     const formater = resolvedOptions.markdown === true
       ? "prettier"
       : resolvedOptions.markdown
-
-    if (formater === "prettier" && !prettierEnabled)
-      throw new Error("Markdown 格式化需要 Prettier，但当前 `prettier` 为 false")
 
     const GLOB_SLIDEV = !resolvedOptions.slidev
       ? []
@@ -380,7 +266,7 @@ export async function formatters(
       },
     })
 
-    if (resolvedOptions.slidev && prettierEnabled) {
+    if (resolvedOptions.slidev) {
       configs.push({
         files: GLOB_SLIDEV,
         languageOptions: {
@@ -403,7 +289,7 @@ export async function formatters(
     }
   }
 
-  if (resolvedOptions.astro && prettierEnabled) {
+  if (resolvedOptions.astro) {
     configs.push({
       files: [GLOB_ASTRO],
       languageOptions: {
@@ -438,7 +324,7 @@ export async function formatters(
     })
   }
 
-  if (resolvedOptions.graphql && prettierEnabled) {
+  if (resolvedOptions.graphql) {
     configs.push({
       files: [GLOB_GRAPHQL],
       languageOptions: {
