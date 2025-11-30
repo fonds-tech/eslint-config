@@ -180,6 +180,21 @@ export async function vue(
             ignoreConstructors: false,
           },
         ],
+        "vue/order-in-components": ["warn", { // Options API 选项顺序，生命周期统一放在末尾
+          order: [
+            "name",
+            "components",
+            "props",
+            "emits",
+            "setup",
+            "data",
+            "computed",
+            "watch",
+            "methods",
+            "LIFECYCLE_HOOKS", // 插件内置生命周期占位，内部顺序使用官方默认钩子顺序
+            "render",
+          ],
+        }],
         "vue/prefer-separate-static-class": "error", // 静态 class 应独立于 :class
         "vue/prefer-template": "error", // 优先使用模板字符串
         "vue/prop-name-casing": ["error", "camelCase"], // Prop 名称使用 camelCase
@@ -202,6 +217,7 @@ export async function vue(
               "vue/comma-dangle": ["error", "always-multiline"],
               "vue/comma-spacing": ["error", { after: true, before: false }],
               "vue/comma-style": ["error", "last"],
+              "vue/first-attribute-linebreak": "off", // 关闭首个属性强制换行，交由格式化工具处理
               "vue/html-comment-content-spacing": ["error", "always", {
                 exceptions: ["-"],
               }],
@@ -213,6 +229,7 @@ export async function vue(
               "vue/operator-linebreak": ["error", "before"],
               "vue/padding-line-between-blocks": ["error", "always"],
               "vue/quote-props": ["error", "consistent-as-needed"],
+              "vue/singleline-html-element-content-newline": "off", // 关闭单行元素内容换行限制，交由格式化工具处理
               "vue/space-in-parens": ["error", "never"],
               "vue/template-curly-spacing": "error",
             }
